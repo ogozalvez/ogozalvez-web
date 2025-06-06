@@ -1,143 +1,260 @@
+Let's make a game!
+    name:Football Clicker
+    by:Orteil (adapted by ChatGPT)
+    desc:Click to score goals and build your football empire!<//>Buy players, coaches, stadiums and more to win championships!
+    created:6/6/2025
+    updated:6/6/2025
+    version:1
 
-name:Football Clicker
-by:Tú
-desc:Un juego idle donde construyes un imperio futbolístico desde cero. ¡Haz goles, mejora tus instalaciones y conquista el mundo del fútbol!
-created:06/06/2025
-updated:06/06/2025
-version:1
+Settings
+    background:stuff/football_pitch.jpg
+    building cost increase:115%
+    building cost refund:50%
+    spritesheet:icons, 48 by 48, stuff/footballIcons.png
+    stylesheet:stuff/bigBlue.css
 
-background:stuff/stadium.jpg
-building cost increase:115%
-building cost refund:50%
-spritesheet:icons, 48 by 48, stuff/footballIcons.png
-stylesheet:stuff/greenField.css
+Layout
+    use default
 
-*goalButton
-    name:Hacer un gol
-    desc:Haz clic para marcar goles y ganar fama.
-    on click:anim icon wobble
-    on click:yield 1 gol
-    on click:if (have goldenBoot and chance(1%)) yield 1 balónDeOro
-    icon:stuff/ball.png
-    no text
-    class:bigButton hasFlares
-    icon class:shadowed
-    tooltip origin:bottom
-    tooltip class:blue
+Buttons
+    *goalButton
+        name:Score a goal
+        desc:Click the football to score goals!
+        on click:anim icon wobble
+        on click:yield 1 goal
+        on click:if (have goldenBoot and chance(1%)) yield 1 goldenTrophy
+        icon:stuff/football.png
+        no text
+        class:bigButton hasFlares
+        icon class:shadowed
+        tooltip origin:bottom
+        tooltip class:red
 
-*gol|goles
-    name:Gol|Goles
-    desc:Tu principal recurso. Úsalos para contratar jugadores, entrenadores y mejorar el estadio.
-    icon:icons[0,0]
-    class:noBackground
-    show earned
+Resources
+    *goal|goals
+        name:Goal|Goals
+        desc:Score goals to build your football empire! Use them to buy players, stadiums, and more.
+        icon:icons[0,0]
+        class:noBackground
+        show earned
 
-*balónDeOro|balonesDeOro
-    name:Balón de Oro|Balones de Oro
-    desc:¡Un premio raro y prestigioso que vale su peso en oro futbolístico!
-    icon:icons[0,1]
-    class:noBackground
-    hidden when 0
+    *goldenTrophy|goldenTrophies
+        name:Golden trophy|Golden trophies
+        desc:Rare and prestigious trophies awarded to the best teams.
+        icon:icons[0,1]
+        class:noBackground
+        hidden when 0
 
-*campo|campos
-    name:Campo de entrenamiento|Campos de entrenamiento
-    desc:Un pequeño campo donde tus jugadores practican.<//><b>Produce 1 gol cada 10 segundos.</b>
-    icon:icons[3,0]
-    cost:15 goles
-    on tick:yield 0.1 gol
-    unlocked
-
-*academia|academias
-    name:Academia juvenil|Academias juveniles
-    desc:Entrena futuras estrellas.<//><b>Produce 1 gol cada 2 segundos.</b>
-    icon:icons[3,1]
-    cost:100 goles
-    on tick:yield 0.5 goles
-    req:100 goles:earned
-
-*equipo|equipos
-    name:Equipo profesional|Equipos profesionales
-    desc:Tu primer equipo serio compite en torneos.<//><b>Produce 5 goles por segundo.</b>
-    icon:icons[3,2]
-    cost:600 goles
-    on tick:yield 5 goles
-    req:600 goles:earned
-
-*estadio|estadios
-    name:Estadio|Estadios
-    desc:Un estadio lleno genera fama y goles.<//><b>Produce 12 goles por segundo.</b>
-    icon:icons[3,3]
-    cost:4000 goles
-    on tick:yield 12 goles
-    req:4000 goles:earned
-
-*liga|ligas
-    name:Liga regional|Ligas regionales
-    desc:Compite en ligas más grandes y gana más.<//><b>Produce 90 goles por segundo.</b>
-    icon:icons[3,4]
-    cost:20000 goles
-    on tick:yield 90 goles
-    req:20000 goles:earned
-
-*internacional
-    name:Torneo internacional
-    desc:Tu equipo compite a nivel global.<//><b>Produce 300 goles por segundo.</b>
-    icon:icons[3,5]
-    cost:200000 goles, 1 balónDeOro
-    on tick:yield 300 goles
-    req:200000 goles:earned and mundialUnlocked
-
-*clubLeyenda
-    name:Club leyenda
-    desc:Un equipo mítico con historia y gloria.<//><b>Produce 1000 goles por segundo.</b>
-    icon:icons[3,6]
-    cost:3000000 goles, 4 balonesDeOro
-    on tick:yield 1000 goles
-    req:3000000 goles:earned and mundialUnlocked
-
-*zapatillas
-    name:Zapatillas nuevas
-    desc:Tus jugadores se sienten más cómodos.<//><b>+1 gol por clic</b>
-    icon:icons[1,1]
-    cost:100 goles
-    passive:increase gol yield of goalButton by 1
-    req:10 goles:earned
-
-*entrenador
-    name:Entrenador táctico
-    desc:Mejora la efectividad del equipo.<//><b>goles/clic x1.5<.>Producción total +5%</b>
-    icon:icons[1,2]
-    cost:3000 goles
-    passive:multiply gol yield of goalButton by 1.5
-    passive:multiply yield of goles by 1.05
-    req:1000 goles:earned
-
-*fisioterapeuta
-    name:Fisioterapeuta profesional
-    desc:Mantiene a los jugadores en forma.<//><b>goles/clic x2<.>Producción total +10%</b>
-    icon:icons[1,3]
-    cost:10000 goles
-    passive:multiply gol yield of goalButton by 2
-    passive:multiply yield of goles by 1.1
-    req:5000 goles:earned
-
-*estrellaFugaz
-    on click:log ¡Estrella fichada!
-    movement:onRight moveLeft fade bounce:0.05
-    frequency:90
-    frequency variation:40
-    icon:stuff/estrella.png
-    class:bigButton
-    on click:
-        $boost=1
-        if (have talisman) $boost=3
-        if (chance(25%))
-            $amount=max(5,random(goles:ps*60*1,goles:ps*60*3))*$boost
-            toast ¡Tu nueva estrella marca <b>[$amount] goles</b>!
-            yield $amount goles
-        else
-            $amount=1*$boost
-            toast ¡Has ganado <b>[$amount] balón[es?$amount] de oro</b>!
-            yield $amount balónDeOro
+Shinies
+    *luckyFootball
+        on click:log Goal!
+        movement:onRight moveLeft fade bounce:0.05
+        frequency:60
+        frequency variation:30
+        icon:stuff/luckyFootball.png
+        class:bigButton
+        on click:
+            $boost=1
+            if (have fanSupport) $boost=4
+            if (chance(25%))
+                $amount=max(7,random(goals:ps*60*1,goals:ps*60*3))*$boost
+                toast The lucky football grants you<//><b>[$amount] goals</b>!
+                yield $amount goals
+            else
+                $amount=1*$boost
+                toast The lucky football grants you<//><b>[$amount] golden trophy[s?$amount]</b>!
+                yield $amount goldenTrophy
+            end
         end
-    end
+
+Buildings
+    *TEMPLATE
+        on click:anim glow
+
+    *rookiePlayer|rookiePlayers
+        name:Rookie player|Rookie players
+        desc:A fresh talent starting their football career.<//><b>Effect:</b><.>Scores 1 goal every 10 seconds.
+        icon:icons[3,0]
+        cost:15 goals
+        on tick:yield 0.1 goal
+        unlocked
+
+    *starPlayer|starPlayers
+        name:Star player|Star players
+        desc:Experienced players who score more goals.<//><b>Effect:</b><.>Scores 1 goal every 2 seconds.
+        icon:icons[3,1]
+        cost:100 goals
+        on tick:yield 0.5 goals
+        req:100 goals:earned
+
+    *coach|coaches
+        name:Coach|Coaches
+        desc:Motivates players and improves team performance.<//><b>Effect:</b><.>Scores 5 goals per second.
+        icon:icons[3,2]
+        cost:600 goals
+        on tick:yield 5 goals
+        req:600 goals:earned
+
+    *stadium|stadiums
+        name:Stadium|Stadiums
+        desc:Home ground where fans cheer loudly.<//><b>Effect:</b><.>Scores 12 goals per second.
+        icon:icons[3,3]
+        cost:4000 goals
+        on tick:yield 12 goals
+        req:4000 goals:earned
+
+    *footballAcademy|footballAcademies
+        name:Football academy|Football academies
+        desc:Trains future stars and boosts goal scoring.<//><b>Effect:</b><.>Scores 90 goals per second.
+        icon:icons[3,4]
+        cost:20000 goals
+        on tick:yield 90 goals
+        req:20000 goals:earned
+
+    *footballClub|footballClubs
+        name:Football club|Football clubs
+        desc:Your team is growing and competing nationally.<//><b>Effect:</b><.>Scores 300 goals per second.
+        icon:icons[3,5]
+        cost:200000 goals, 1 goldenTrophy
+        on tick:yield 300 goals
+        req:200000 goals:earned and independenceDay
+
+    *footballLeague|footballLeagues
+        name:Football league|Football leagues
+        desc:Organizes matches and championships.<//><b>Effect:</b><.>Scores 1000 goals per second.
+        icon:icons[3,6]
+        cost:3000000 goals, 4 goldenTrophies
+        on tick:yield 1000 goals
+        req:3000000 goals:earned and independenceDay
+
+    *worldCup|worldCups
+        name:World Cup|World Cups
+        desc:The ultimate football competition.<//><b>Effect:</b><.>Scores 4000 goals per second.
+        icon:icons[3,7]
+        cost:70000000 goals, 16 goldenTrophies
+        on tick:yield 4000 goals
+        on tick:if (have globalFans) yield 0.01 goldenTrophy
+        req:70000000 goals:earned and independenceDay
+
+    *footballFortress
+        name:Football fortress
+        text:Football fortress ([this]%)
+        desc:A legendary stadium symbolizing your dominance.<//><b>The fortress is [this]% complete.</b>
+        icon:icons[3,8]
+        cost:300000000 goals, 100 goldenTrophies
+        req:70000000 goals:earned and independenceDay
+        limit:100
+        cost increase:105%
+
+Upgrades
+    *TEMPLATE
+        on click:anim glow
+
+    *training
+        name:Training sessions
+        desc:Players improve their skills.<//><b>Effect:</b><.>+1 goal/click
+        icon:icons[1,1]
+        cost:100 goals
+        passive:increase goal yield of goalButton by 1
+        req:10 goals:earned
+
+    *nutrition
+        name:Nutrition plans
+        desc:Healthy diet for better performance.<//><b>Effect:</b><.>+1 goal/click
+        icon:icons[1,2]
+        cost:200 goals
+        passive:increase goal yield of goalButton by 1
+        req:50 goals:earned
+
+    *tactics
+        name:Tactical training
+        desc:Improved strategies on the field.<//><b>Effect:</b><.>+1 goal/click
+        icon:icons[1,3]
+        cost:400 goals
+        passive:increase goal yield of goalButton by 1
+        req:200 goals:earned
+
+    *fitness
+        name:Fitness coaching
+        desc:Boost stamina and strength.<//><b>Effect:</b><.>goals/click x2<.>goal production +5%
+        icon:icons[1,4]
+        cost:3000 goals
+        passive:multiply goal yield of goalButton by 2
+        passive:multiply yield of goals by 1.05
+        req:1000 goals:earned
+
+    *fanSupport
+        name:Fan support
+        desc:Cheering fans boost your players.<//><b>Effect:</b><.>goals/click x1.5<.>goal production +5%
+        icon:icons[1,5]
+        cost:10000 goals
+        passive:multiply goal yield of goalButton by 1.5
+        passive:multiply yield of goals by 1.05
+        req:1000 goals:earned
+
+    *sponsorship
+        name:Sponsorship deals
+        desc:Extra funds to improve your team.<//><b>Effect:</b><.>goals/click x1.5<.>goal production +5%
+        icon:icons[1,6]
+        cost:50000 goals
+        passive:multiply goal yield of goalButton by 1.5
+        passive:multiply yield of goals by 1.05
+        req:10000 goals:earned
+
+    *stadiumUpgrade
+        name:Stadium upgrade
+        desc:Better facilities attract more fans.<//><b>Effect:</b><.>goals/click x1.5<.>goal production +5%
+        icon:icons[1,7]
+        cost:100000 goals
+        passive:multiply goal yield of goalButton by 1.5
+        passive:multiply yield of goals by 1.05
+        req:50000 goals:earned
+
+    *mediaCoverage
+        name:Media coverage
+        desc:Increased fame and popularity.<//><b>Effect:</b><.>goals/click x1.5<.>goal production +5%
+        icon:icons[1,8]
+        cost:500000 goals
+        passive:multiply goal yield of goalButton by 1.5
+        passive:multiply yield of goals by 1.05
+        req:500000 goals:earned
+
+Achievements
+    *scoreGoals
+        name:Score 10 goals
+        desc:Score your first 10 goals!
+        icon:icons[0,0]
+        req:10 goals:earned
+
+    *score100
+        name:Score 100 goals
+        desc:Keep going, 100 goals scored!
+        icon:icons[0,2]
+        req:100 goals:earned
+
+    *score1000
+        name:Score 1000 goals
+        desc:You're on fire with 1000 goals!
+        icon:icons[0,3]
+        req:1000 goals:earned
+
+    *winLeague
+        name:Win your first league
+        desc:Reach 10 stadiums built.
+        icon:icons[2,2]
+        req:10 stadiums:have
+
+    *winCup
+        name:Win your first cup
+        desc:Obtain 1 golden trophy.
+        icon:icons[0,1]
+        req:1 goldenTrophies:have
+
+Messages
+    *luckyFootballMessage
+        message:Lucky football!
+        color:gold
+
+    *goalScored
+        message:Goal scored!
+        color:green
