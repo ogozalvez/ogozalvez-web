@@ -1,0 +1,31 @@
+[04/08/2025] Proyecto iniciado.
+- Estructura de carpetas creada.
+- Página base "index.html" con navegación.
+- CSS inicial con diseño limpio.
+- Archivo JS vacío creado.
+- Se decide hacer el sitio accesible, moderno y 100% responsivo.
+
+[04/08/2025] Estructura base funcional.
+- Diseño adaptado con Flexbox y media queries.
+- Menú responsivo creado.
+- Sección 'Sobre mí' añadida con imagen.
+
+[04/08/2025] Página de Colección de Fútbol creada.
+- Secciones separadas: camisetas, balones, otros objetos.
+- Efecto visual de giro para camisetas (frontal/trasera).
+- Estilo de galería añadido con hover.
+
+[04/08/2025] Sección 'Trabajos realizados' añadida.
+- Organizado en tres partes: Web, Juegos, Python.
+- Cada tarjeta muestra imagen, nombre, descripción y enlace.
+- Diseño responsivo y con hover.
+
+[05/08/2025] Mejora visual: menú responsive tipo hamburguesa.
+- En pantallas pequeñas se muestra un icono ☰ que abre/cierra el menú.
+- Compatible con todos los navegadores y dispositivos.
+
+[05/08/2025] Mejora estética general aplicada.
+- Fuente moderna (Inter).
+- Nuevos colores para header, botones y fondo.
+- Animación suave en encabezados.
+- Diseño más aireado y profesional.
