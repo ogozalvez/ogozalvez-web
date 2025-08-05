@@ -1,0 +1,270 @@
+/* Estilo base para toda la web */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f8f9fa;
+  color: #013237;
+}
+
+header {
+  background-color: #013237;
+  padding: 1rem 0;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  margin: 0;
+  background-color: #013237;
+}
+
+nav a {
+  padding: 0.5rem 1rem;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+nav a:hover {
+  background-color: #4d3d3d;
+}
+
+main {
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #343a40;
+  color: white;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.categoria {
+  margin-bottom: 3rem;
+}
+
+.categoria h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.galeria img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.galeria img:hover {
+  transform: scale(1.05);
+}
+
+/* Efecto de giro para camisetas */
+.tarjeta-camiseta {
+  width: 200px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.cara {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.cara-frontal, .cara-trasera {
+  transition: transform 0.8s;
+}
+
+.tarjeta-camiseta {
+  position: relative;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.tarjeta-camiseta:hover .cara-frontal {
+  transform: rotateY(180deg);
+}
+
+.tarjeta-camiseta:hover .cara-trasera {
+  transform: rotateY(0deg);
+}
+
+.cara-frontal {
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.cara-trasera {
+  transform: rotateY(180deg);
+}
+
+.proyectos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.tarjeta {
+  width: 250px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.tarjeta img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.tarjeta h3 {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.tarjeta p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.tarjeta a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.tarjeta a:hover {
+  background-color: #0056b3;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    background-color: #013237;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  nav ul li {
+    width: 100%;
+    border-top: 1px solid #495057;
+    padding: 0.5rem 0;
+  }
+}
+
+/* HEADER y NAV */
+header {
+  background-color: #013237;
+}
+
+nav a {
+  color: #eeeeee;
+}
+
+nav a:hover {
+  background-color: #404753;
+}
+
+/* BOTONES */
+.tarjeta a {
+  background-color: #00adb5;
+}
+
+.tarjeta a:hover {
+  background-color: #007a80;
+}
+
+main {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+main h1, main h2 {
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+body {
+  background: linear-gradient(to bottom right, #f8f9fa, #e0f7fa);
+}
