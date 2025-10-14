@@ -1,59 +1,44 @@
-const itemInput = document.getElementById("itemInput");
-const addItemBtn = document.getElementById("addItem");
-const list = document.getElementById("shoppingList");
-const listCodeInput = document.getElementById("listCode");
-const loadListBtn = document.getElementById("loadList");
-const newListBtn = document.getElementById("newList");
+const lista = document.getElementById("listaProductos");
+const input = document.getElementById("productoInput");
+const codigoTexto = document.getElementById("codigoFamilia");
 
-let currentCode = "";
+// Obtener código de URL
+const params = new URLSearchParams(window.location.search);
+const codigo = params.get("codigo") || "SIN_CODIGO";
+codigoTexto.textContent = `Código de familia: ${codigo}`;
 
-function getStorageKey() {
-  return `list_${currentCode}`;
-}
+// Cargar lista desde LocalStorage
+let productos = JSON.parse(localStorage.getItem(`lista_${codigo}`)) || [];
+renderizarLista();
 
-function loadList() {
-  const stored = localStorage.getItem(getStorageKey());
-  list.innerHTML = "";
-  if (stored) {
-    JSON.parse(stored).forEach((item) => addItemToDOM(item));
+function agregarProducto() {
+  const producto = input.value.trim();
+  if (producto !== "") {
+    productos.push(producto);
+    guardarLista();
+    renderizarLista();
+    input.value = "";
   }
 }
 
-function saveList() {
-  const items = Array.from(list.children).map(li => li.firstChild.textContent);
-  localStorage.setItem(getStorageKey(), JSON.stringify(items));
+function eliminarProducto(index) {
+  productos.splice(index, 1);
+  guardarLista();
+  renderizarLista();
 }
 
-function addItemToDOM(text) {
-  const li = document.createElement("li");
-  li.textContent = text;
-  const delBtn = document.createElement("button");
-  delBtn.textContent = "❌";
-  delBtn.onclick = () => {
-    li.remove();
-    saveList();
-  };
-  li.appendChild(delBtn);
-  list.appendChild(li);
+function renderizarLista() {
+  lista.innerHTML = "";
+  productos.forEach((producto, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${producto}
+      <button onclick="eliminarProducto(${index})">🗑️</button>
+    `;
+    lista.appendChild(li);
+  });
 }
 
-addItemBtn.onclick = () => {
-  const text = itemInput.value.trim();
-  if (text && currentCode) {
-    addItemToDOM(text);
-    saveList();
-    itemInput.value = "";
-  } else {
-    alert("Primero introduce un código de lista.");
-  }
-};
-
-loadListBtn.onclick = () => {
-  currentCode = listCodeInput.value.trim();
-  if (!currentCode) return alert("Introduce un código de lista.");
-  loadList();
-};
-
-newListBtn.onclick = () => {
-  currentCode = prompt
+function guardarLista() {
+  localStorage.setItem(`lista_${codigo}`, JSON.stringify(productos));
 }

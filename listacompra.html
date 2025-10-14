@@ -1,36 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de la compra familiar</title>
-  <link rel="stylesheet" href="css/listacompra.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de la compra</title>
+  <link rel="stylesheet" href="listacompra.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>🛒 Lista de la Compra</h1>
+  <header>
+    <h1>🛒 Lista de la compra</h1>
+    <p id="codigoFamilia"></p>
+  </header>
 
-    <div class="code-section">
-      <label for="listCode">Código de lista:</label>
-      <input type="text" id="listCode" placeholder="Ej: FAMILIA123">
-      <button id="loadList">Cargar lista</button>
-      <button id="newList">Nueva lista</button>
-    </div>
+  <main>
+    <section class="formulario">
+      <input type="text" id="productoInput" placeholder="Añadir producto..." />
+      <button onclick="agregarProducto()">➕ Añadir</button>
+    </section>
 
-    <div class="list-section">
-      <ul id="shoppingList"></ul>
+    <ul id="listaProductos"></ul>
+  </main>
 
-      <div class="input-section">
-        <input type="text" id="itemInput" placeholder="Añadir producto...">
-        <button id="addItem">➕ Añadir</button>
-      </div>
-    </div>
+  <footer>
+    <p>© 2025 - Lista compartida por familias</p>
+  </footer>
 
-    <footer>
-      <p>👨‍👩‍👧‍👦 Proyecto familiar — <a href="https://ogozalvez.cat">ogozalvez.cat</a></p>
-    </footer>
-  </div>
-
-  <script src="js/listacompra.js"></script>
+  <script src="listacompra.js"></script>
 </body>
 </html>
