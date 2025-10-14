@@ -1,62 +1,59 @@
-// --- Elementos del DOM ---
-const input = document.getElementById("producto");
-const addBtn = document.getElementById("addBtn");
-const lista = document.getElementById("lista");
-const fecha = document.getElementById("fecha");
+const itemInput = document.getElementById("itemInput");
+const addItemBtn = document.getElementById("addItem");
+const list = document.getElementById("shoppingList");
+const listCodeInput = document.getElementById("listCode");
+const loadListBtn = document.getElementById("loadList");
+const newListBtn = document.getElementById("newList");
 
-// --- Inicializar lista ---
-let productos = JSON.parse(localStorage.getItem("listaCompra")) || [];
+let currentCode = "";
 
-// --- Mostrar fecha actual ---
-const hoy = new Date();
-fecha.textContent = hoy.toLocaleDateString("es-ES", {
-  weekday: "long",
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-});
-
-// --- Función para actualizar la lista en pantalla ---
-function mostrarLista() {
-  lista.innerHTML = "";
-  productos.forEach((producto, i) => {
-    const li = document.createElement("li");
-    const span = document.createElement("span");
-    const btnBorrar = document.createElement("button");
-
-    span.textContent = producto;
-    btnBorrar.textContent = "❌";
-    btnBorrar.onclick = () => eliminarProducto(i);
-
-    li.appendChild(span);
-    li.appendChild(btnBorrar);
-    lista.appendChild(li);
-  });
+function getStorageKey() {
+  return `list_${currentCode}`;
 }
 
-// --- Añadir producto ---
-function añadirProducto() {
-  const texto = input.value.trim();
-  if (texto === "") return;
-
-  productos.push(texto);
-  localStorage.setItem("listaCompra", JSON.stringify(productos));
-  input.value = "";
-  mostrarLista();
+function loadList() {
+  const stored = localStorage.getItem(getStorageKey());
+  list.innerHTML = "";
+  if (stored) {
+    JSON.parse(stored).forEach((item) => addItemToDOM(item));
+  }
 }
 
-// --- Eliminar producto ---
-function eliminarProducto(index) {
-  productos.splice(index, 1);
-  localStorage.setItem("listaCompra", JSON.stringify(productos));
-  mostrarLista();
+function saveList() {
+  const items = Array.from(list.children).map(li => li.firstChild.textContent);
+  localStorage.setItem(getStorageKey(), JSON.stringify(items));
 }
 
-// --- Eventos ---
-addBtn.addEventListener("click", añadirProducto);
-input.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") añadirProducto();
-});
+function addItemToDOM(text) {
+  const li = document.createElement("li");
+  li.textContent = text;
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "❌";
+  delBtn.onclick = () => {
+    li.remove();
+    saveList();
+  };
+  li.appendChild(delBtn);
+  list.appendChild(li);
+}
 
-// --- Mostrar lista al cargar ---
-mostrarLista();
+addItemBtn.onclick = () => {
+  const text = itemInput.value.trim();
+  if (text && currentCode) {
+    addItemToDOM(text);
+    saveList();
+    itemInput.value = "";
+  } else {
+    alert("Primero introduce un código de lista.");
+  }
+};
+
+loadListBtn.onclick = () => {
+  currentCode = listCodeInput.value.trim();
+  if (!currentCode) return alert("Introduce un código de lista.");
+  loadList();
+};
+
+newListBtn.onclick = () => {
+  currentCode = prompt
+}

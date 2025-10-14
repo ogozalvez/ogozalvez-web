@@ -1,7 +1,7 @@
-/* Estilo general */
 body {
   font-family: "Inter", sans-serif;
-  background: linear-gradient(135deg, #b3e5fc, #e1bee7);
+  background: linear-gradient(135deg, #f0f4ff, #d0e6ff);
+  color: #333;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,49 +10,50 @@ body {
 }
 
 .container {
-  background: #ffffffcc;
-  backdrop-filter: blur(10px);
-  padding: 30px;
+  background: #fff;
+  padding: 2rem;
   border-radius: 20px;
-  width: 90%;
-  max-width: 450px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-width: 90%;
   text-align: center;
 }
 
 h1 {
-  color: #333;
-  margin-bottom: 20px;
-  font-weight: 700;
+  color: #0078d7;
+  margin-bottom: 1rem;
 }
 
-.input-container {
+.code-section {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  gap: 10px;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-input {
-  flex: 1;
-  padding: 10px;
-  border: 2px solid #80cbc4;
+input[type="text"] {
+  padding: 0.6rem;
   border-radius: 10px;
-  font-size: 1em;
+  border: 1px solid #ccc;
+  width: 100%;
 }
 
 button {
-  background-color: #26a69a;
-  border: none;
+  background: #0078d7;
   color: white;
-  padding: 10px 15px;
+  border: none;
+  padding: 0.6rem 1rem;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: 0.2s;
 }
 
 button:hover {
-  background-color: #00897b;
+  background: #005fa3;
+}
+
+.list-section {
+  margin-top: 1rem;
 }
 
 ul {
@@ -62,42 +63,32 @@ ul {
 }
 
 li {
-  background-color: #ffffff;
-  margin: 8px 0;
-  padding: 10px 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background: #f5f8ff;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: transform 0.1s;
-}
-
-li:hover {
-  transform: scale(1.03);
-}
-
-li span {
-  flex: 1;
-  text-align: left;
 }
 
 li button {
-  background-color: #ef5350;
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  background: #e74c3c;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
 }
 
 li button:hover {
-  background-color: #d32f2f;
+  background: #c0392b;
 }
 
 footer {
-  margin-top: 20px;
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
   color: #666;
-  font-size: 0.9em;
+}
+
+footer a {
+  color: #0078d7;
+  text-decoration: none;
 }

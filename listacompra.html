@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lista de la compra 🛒</title>
-  <link rel="stylesheet" href="css/listacompra.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de la compra familiar</title>
+  <link rel="stylesheet" href="css/listacompra.css">
 </head>
 <body>
   <div class="container">
-    <h1>🛒 Lista de la compra</h1>
+    <h1>🛒 Lista de la Compra</h1>
 
-    <div class="input-container">
-      <input type="text" id="producto" placeholder="Escribe un producto..." />
-      <button id="addBtn">Añadir</button>
+    <div class="code-section">
+      <label for="listCode">Código de lista:</label>
+      <input type="text" id="listCode" placeholder="Ej: FAMILIA123">
+      <button id="loadList">Cargar lista</button>
+      <button id="newList">Nueva lista</button>
     </div>
 
-    <ul id="lista"></ul>
+    <div class="list-section">
+      <ul id="shoppingList"></ul>
+
+      <div class="input-section">
+        <input type="text" id="itemInput" placeholder="Añadir producto...">
+        <button id="addItem">➕ Añadir</button>
+      </div>
+    </div>
 
     <footer>
-      <p>Lista personal — <span id="fecha"></span></p>
+      <p>👨‍👩‍👧‍👦 Proyecto familiar — <a href="https://ogozalvez.cat">ogozalvez.cat</a></p>
     </footer>
   </div>
 
-  <script src="script-listacompra.js"></script>
+  <script src="js/listacompra.js"></script>
 </body>
 </html>
