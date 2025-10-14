@@ -9,22 +9,30 @@
 <body>
   <header>
     <h1>🛒 Lista de la compra</h1>
-    <p id="codigoFamilia"></p>
+    <p id="codigoFamilia" class="codigo">Cargando código de familia...</p>
   </header>
 
   <main>
-    <section class="formulario">
-      <input type="text" id="productoInput" placeholder="Añadir producto..." />
-      <button onclick="agregarProducto()">➕ Añadir</button>
+    <section class="formulario" aria-label="Formulario para añadir productos">
+      <label for="productoInput" class="visually-hidden">Producto</label>
+      <input
+        type="text"
+        id="productoInput"
+        placeholder="Añadir producto..."
+        autocomplete="off"
+      />
+      <button id="btnAgregar" type="button">➕ Añadir</button>
     </section>
 
-    <ul id="listaProductos"></ul>
+    <section aria-label="Lista de productos">
+      <ul id="listaProductos" class="lista"></ul>
+    </section>
   </main>
 
   <footer>
     <p>© 2025 - Lista compartida por familias</p>
   </footer>
-
+  
   <script src="listacompra.js"></script>
 </body>
 </html>

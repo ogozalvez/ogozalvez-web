@@ -1,81 +1,109 @@
+/* Estil general */
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #f0f4f8;
+  background: #eef2f7;
   margin: 0;
   padding: 0;
-  color: #333;
+  color: #2c3e50;
 }
 
+/* Capçalera */
 header {
-  background: #4a90e2;
+  background: #3498db;
   color: white;
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.codigo {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  color: #ecf0f1;
+}
+
+/* Contingut principal */
 main {
   padding: 1rem;
   max-width: 600px;
   margin: auto;
 }
 
+/* Formulari */
 .formulario {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 input[type="text"] {
-  flex: 1;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  flex: 1 1 70%;
+  padding: 0.6rem;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 1rem;
 }
 
 button {
-  background: #4a90e2;
+  flex: 1 1 25%;
+  background: #3498db;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
 button:hover {
-  background: #357ab8;
+  background: #2980b9;
 }
 
-ul {
+/* Llista de productes */
+.lista {
   list-style: none;
   padding: 0;
 }
 
-li {
+.lista li {
   background: white;
   margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 4px;
+  padding: 0.6rem;
+  border-radius: 6px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-li button {
+.lista li button {
   background: #e74c3c;
   border: none;
   color: white;
   padding: 0.3rem 0.6rem;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
 }
 
-li button:hover {
+.lista li button:hover {
   background: #c0392b;
 }
 
+/* Peu de pàgina */
 footer {
   text-align: center;
   padding: 1rem;
   font-size: 0.9rem;
-  color: #777;
+  color: #7f8c8d;
+  margin-top: 2rem;
+}
+
+/* Accessibilitat */
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
 }
