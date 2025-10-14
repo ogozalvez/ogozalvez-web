@@ -63,31 +63,32 @@ button:hover {
 .lista {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .lista li {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0.6rem;
+  justify-content: space-between;
   background: white;
   border-radius: 6px;
   margin-bottom: 0.5rem;
+  padding: 0.6rem 0.8rem;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
 }
 
 .lista li span {
   flex: 1;
+  font-size: 1rem;
+  color: #2c3e50;
   overflow-wrap: break-word;
 }
 
-/* 🗑️ Botó de paperera compacte */
+/* 🗑️ Botó de paperera compacte i fix */
 .lista li button {
   width: 32px;
   height: 32px;
-  min-width: 32px;
-  min-height: 32px;
-  padding: 0;
   background: #e74c3c;
   border: none;
   color: white;
@@ -97,6 +98,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   transition: background 0.3s ease;
 }
 
