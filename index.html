@@ -3,28 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lista de la compra</title>
-  <link rel="stylesheet" href="css/listacompra.css" />
+  <title>inicio | ogozalvez.cat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/estilos.css" />
 </head>
 <body>
   <header>
-    <h1>🛒 Lista de la compra</h1>
-    <p id="codigoFamilia"></p>
+<nav>
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  <ul id="menu">
+    <li><a href="index.html">INICIO</a></li>
+    <li><a href="sobre-mi.html">SOBRE MÍ</a></li>
+    <li><a href="coleccion-futbol.html">COLECCIÓN DE FÚTBOL</a></li>
+    <li><a href="trabajos.html">TRABAJOS REALIZADOS</a></li>
+  </ul>
+</nav>
   </header>
 
   <main>
-    <section class="formulario">
-      <input type="text" id="productoInput" placeholder="Añadir producto..." />
-      <button onclick="agregarProducto()">➕ Añadir</button>
-    </section>
-
-    <ul id="listaProductos"></ul>
+    <h1>Bienvenido a mi sitio web personal</h1>
+    <p>Este proyecto refleja todo lo que he aprendido en informática.</p>
   </main>
 
   <footer>
-    <p>© 2025 - Lista compartida por familias</p>
+    <p>&copy; 2025 O. Gozálvez</p>
   </footer>
 
-  <script src="listacompra.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

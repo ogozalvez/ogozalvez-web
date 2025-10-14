@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Aquí podrás añadir efectos visuales, animaciones o interacciones
 console.log("Bienvenido a ogozalvez.cat");
 
@@ -11,4 +12,3 @@ document.addEventListener("DOMContentLoaded", () => {
   toggle.addEventListener("click", () => {
     menu.classList.toggle("active");
   });
-});
