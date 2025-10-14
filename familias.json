@@ -1,0 +1,7 @@
+{
+  "AAA": { "nombre": "Familia Gómez", "password": "gomez2025" },
+  "BBB": { "nombre": "Familia López", "password": "lopez123" },
+  "CCC": { "nombre": "Familia Torres", "password": "torres456" },
+  "FAM123": { "nombre": "Familia Martínez", "password": "martinez789" },
+  "OGZ2025": { "nombre": "Familia Gozálvez", "password": "ogzpass" }
+}
