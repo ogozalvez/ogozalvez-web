@@ -89,7 +89,7 @@ button:hover {
 }
 
 .lista li button {
-  background: #e74c3c; /* vermell */
+  background: #e74c3c; /* rojo */
   color: white;
   border: none;
   padding: 0.6rem 1rem;
@@ -98,7 +98,12 @@ button:hover {
   font-weight: bold;
   font-size: 1rem;
   transition: background 0.3s ease;
+  display: inline-block;
+  line-height: 1;
+  height: auto;
+  width: auto;
 }
+
 
 .lista li button:hover {
   background: #c0392b;
