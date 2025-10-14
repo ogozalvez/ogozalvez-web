@@ -89,22 +89,18 @@ button:hover {
 }
 
 .lista li button {
-  background: #e74c3c; /* rojo */
+  background: #e74c3c; /* vermell intens */
   color: white;
   border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
+  padding: 0.6rem 1rem; /* igual que el botó “Añadir” */
+  border-radius: 6px;   /* cantonades arrodonides */
   cursor: pointer;
   font-weight: bold;
   font-size: 1rem;
   transition: background 0.3s ease;
   display: inline-block;
   line-height: 1;
-  height: auto;
-  width: auto;
 }
-
-
 .lista li button:hover {
   background: #c0392b;
 }
