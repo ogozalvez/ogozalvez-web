@@ -1,3 +1,4 @@
+/* 🌐 Estil general */
 body {
   font-family: 'Segoe UI', sans-serif;
   background: #eef2f7;
@@ -26,6 +27,7 @@ main {
   margin: auto;
 }
 
+/* 🧾 Formulari */
 .formulario {
   display: flex;
   gap: 0.5rem;
@@ -57,6 +59,7 @@ button:hover {
   background: #2980b9;
 }
 
+/* 📋 Llista de productes */
 .lista {
   list-style: none;
   padding: 0;
@@ -78,6 +81,7 @@ button:hover {
   overflow-wrap: break-word;
 }
 
+/* 🗑️ Botó de paperera compacte */
 .lista li button {
   width: 32px;
   height: 32px;
@@ -100,11 +104,13 @@ button:hover {
   background: #c0392b;
 }
 
+/* 📲 Accions extra */
 #accionesExtras {
   text-align: center;
   margin-top: 1rem;
 }
 
+/* 📜 Peu de pàgina */
 footer {
   text-align: center;
   padding: 1rem;
@@ -113,6 +119,7 @@ footer {
   margin-top: 2rem;
 }
 
+/* 👁️ Accessibilitat */
 .visually-hidden {
   position: absolute;
   left: -9999px;
