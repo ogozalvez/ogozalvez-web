@@ -1,4 +1,4 @@
-// 🔐 Codis de família i contrasenyes incrustats
+// 🔐 Codigos de familia y contraseñas
 const familias = {
   "AAA": { nombre: "Trikis Family", password: "1234" },
   "BBB": { nombre: "Familia López", password: "lopez123" },
@@ -7,17 +7,17 @@ const familias = {
   "OGZ2025": { nombre: "Familia Gozálvez", password: "ogzpass" }
 };
 
-// 🔗 Elements del DOM
+// 🔗 Elementos del DOM
 const lista = document.getElementById("listaProductos");
 const input = document.getElementById("productoInput");
 const btnAgregar = document.getElementById("btnAgregar");
 const codigoTexto = document.getElementById("codigoFamilia");
 
-// 🔍 Obtenir codi de la URL
+// 🔍 Obtener código de la URL
 const params = new URLSearchParams(window.location.search);
 const codigo = params.get("codigo");
 
-// 🔒 Validació de codi
+// 🔒 Validación de código
 if (!codigo || !familias[codigo]) {
   document.body.innerHTML = `
     <main style="text-align:center; padding:2rem;">
@@ -28,7 +28,7 @@ if (!codigo || !familias[codigo]) {
   throw new Error("Código no válido");
 }
 
-// 🔑 Validació de contrasenya (si existeix)
+// 🔑 Validación de contraseña
 const familia = familias[codigo];
 if (familia.password) {
   const intento = prompt(`Introduce la contraseña para ${familia.nombre}:`);
@@ -43,14 +43,14 @@ if (familia.password) {
   }
 }
 
-// ✅ Mostrar codi i nom
+// ✅ Mostrar código y nombre
 codigoTexto.textContent = `Código de familia: ${codigo} (${familia.nombre})`;
 
-// 📦 Carregar llista
+// 📦 Cargar lista
 let productos = JSON.parse(localStorage.getItem(`lista_${codigo}`)) || [];
 renderizarLista();
 
-// ➕ Afegir producte
+// ➕ Añadir producto
 function agregarProducto() {
   const producto = input.value.trim();
   if (producto !== "") {
@@ -62,14 +62,19 @@ function agregarProducto() {
   }
 }
 
-// 🗑️ Eliminar producte
+// 🗑️ Eliminar producto con animación
 function eliminarProducto(index) {
-  productos.splice(index, 1);
-  guardarLista();
-  renderizarLista();
+  const li = lista.children[index];
+  li.classList.add("eliminando");
+
+  setTimeout(() => {
+    productos.splice(index, 1);
+    guardarLista();
+    renderizarLista();
+  }, 400); // tiempo igual a la animación
 }
 
-// 🧾 Renderitzar amb numeració
+// 🧾 Renderizar con numeración
 function renderizarLista() {
   lista.innerHTML = "";
   productos.forEach((producto, index) => {
@@ -89,12 +94,12 @@ function renderizarLista() {
   });
 }
 
-// 💾 Guardar
+// 💾 Guardar lista
 function guardarLista() {
   localStorage.setItem(`lista_${codigo}`, JSON.stringify(productos));
 }
 
-// 📲 Compartir per WhatsApp
+// 📲 Compartir por WhatsApp
 function compartirWhatsApp() {
   if (productos.length === 0) {
     alert("La lista está vacía.");
@@ -108,13 +113,13 @@ function compartirWhatsApp() {
   window.open(url, "_blank");
 }
 
-// 🎯 Events
+// 🎯 Eventos
 btnAgregar.addEventListener("click", agregarProducto);
 input.addEventListener("keypress", (e) => {
   if (e.key === "Enter") agregarProducto();
 });
 
-// 🔘 Botó compartir
+// 🔘 Botón compartir
 const btnCompartir = document.createElement("button");
 btnCompartir.textContent = "📲 Compartir por WhatsApp";
 btnCompartir.style.marginTop = "1rem";

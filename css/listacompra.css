@@ -63,24 +63,36 @@ button:hover {
 }
 
 .lista li {
-  background: white;
-  margin-bottom: 0.5rem;
-  padding: 0.6rem;
-  border-radius: 6px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0.6rem;
+  background: white;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
+.lista li span {
+  flex: 1;
+  overflow-wrap: break-word;
+}
+
 .lista li button {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
   background: #e74c3c;
   border: none;
   color: white;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
+  font-size: 1rem;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background 0.3s ease;
 }
 
@@ -104,4 +116,20 @@ footer {
 .visually-hidden {
   position: absolute;
   left: -9999px;
+}
+
+/* ✨ Animació d'eliminació */
+@keyframes fadeOutRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+.eliminando {
+  animation: fadeOutRight 0.4s ease forwards;
 }
