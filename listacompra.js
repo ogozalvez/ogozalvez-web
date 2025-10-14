@@ -1,6 +1,6 @@
 // 🔐 Codis de família i contrasenyes incrustats
 const familias = {
-  "AAA": { nombre: "Familia Gómez", password: "gomez2025" },
+  "AAA": { nombre: "Familia Trikis", password: "1234" },
   "BBB": { nombre: "Familia López", password: "lopez123" },
   "CCC": { nombre: "Familia Torres", password: "torres456" },
   "FAM123": { nombre: "Familia Martínez", password: "martinez789" },
