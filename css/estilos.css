@@ -13,7 +13,7 @@
 
 .button1:hover {
   letter-spacing: 3px;
-  background-color: white;
+  background-color: #013237;
   color: hsl(0, 0%, 100%);
   box-shadow: rgb(255, 255, 255) 0px 7px 29px 0px;
 }
