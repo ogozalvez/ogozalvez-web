@@ -1,3 +1,35 @@
+/* ======== BOTONES DEL MENÚ ADAPTADOS AL HEADER ======== */
+/* Inspirado en Uiverse.io by barisdogansutcu */
+.button1 {
+  padding: 14px 32px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  background-color: #026f79; /* tono intermedio del header */
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 8px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button1:hover {
+  background-color: #00adb5; /* color más claro, resalta al pasar el ratón */
+  letter-spacing: 2px;
+  box-shadow: 0px 6px 20px rgba(0, 173, 181, 0.5);
+  transform: translateY(-2px);
+}
+
+.button1:active {
+  transform: translateY(3px);
+  box-shadow: 0px 3px 10px rgba(0, 173, 181, 0.3);
+}
+
+
 /* Estilo base para toda la web */
 body {
   font-family: 'Inter', sans-serif;
