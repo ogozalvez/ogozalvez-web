@@ -72,14 +72,19 @@ codigoTexto.textContent = `Código de familia: ${codigo}`;
 // 📦 Referencia a Firebase
 const listaRef = ref(db, `listas/${codigo}`);
 
-// 🧾 Productos actuales (para renderizar)
+// 🧾 Productos actuales
 let productos = [];
 let productosFirebase = {}; // objeto completo de Firebase
 
-// Leer lista en tiempo real
+// Leer lista en tiempo real y actualizar la lista
 onValue(listaRef, (snapshot) => {
-  productosFirebase = snapshot.val() || {};
-  productos = Object.values(productosFirebase);
+  const data = snapshot.val() || {};
+  productosFirebase = data;
+  // Convertimos a array con las claves de Firebase
+  productos = Object.keys(data).map(key => ({
+    key: key,
+    valor: data[key]
+  }));
   renderizarLista();
 });
 
@@ -95,23 +100,22 @@ function agregarProducto() {
 
 // 🗑️ Eliminar producto
 function eliminarProducto(index) {
-  const keys = Object.keys(productosFirebase);
-  const key = keys[index];
+  const key = productos[index].key;
   remove(ref(db, `listas/${codigo}/${key}`));
 }
 
 // 🧾 Renderizar lista con numeración
 function renderizarLista() {
   lista.innerHTML = "";
-  productos.forEach((producto, index) => {
+  productos.forEach((productoObj, index) => {
     const li = document.createElement("li");
 
     const span = document.createElement("span");
-    span.textContent = `${index + 1}. ${producto}`;
+    span.textContent = `${index + 1}. ${productoObj.valor}`;
 
     const btnEliminar = document.createElement("button");
     btnEliminar.textContent = "🗑️";
-    btnEliminar.setAttribute("aria-label", `Eliminar ${producto}`);
+    btnEliminar.setAttribute("aria-label", `Eliminar ${productoObj.valor}`);
     btnEliminar.addEventListener("click", () => eliminarProducto(index));
 
     li.appendChild(span);
@@ -134,7 +138,7 @@ function compartirWhatsApp() {
   }
 
   const mensaje = `🛒 Lista de la compra (${codigo}):\n` +
-    productos.map((p, i) => `${i + 1}. ${p}`).join("\n");
+    productos.map((p, i) => `${i + 1}. ${p.valor}`).join("\n");
 
   const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
   window.open(url, "_blank");
