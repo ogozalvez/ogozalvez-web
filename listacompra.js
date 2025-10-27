@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebas
 import { getDatabase, ref, push, remove, onValue } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
-// Configuración del proyecto
+// Configuración de tu proyecto
 const firebaseConfig = {
   apiKey: "AIzaSyCE_vOx4G6791luS7XlkZmtGghcr5s43zg",
   authDomain: "listacomprafamilia.firebaseapp.com",
