@@ -88,25 +88,27 @@ button:hover {
   margin-right: 0.5rem;
 }
 
+/* Botón rojo de eliminar en la lista */
 .lista li button {
-  background: #e74c3c;         /* Vermell intens */
+  background: #e74c3c;       /* color rojo */
   color: white;
   border: none;
-  padding: 0.6rem 1rem;        /* Igual que el botó “Añadir” */
-  border-radius: 6px;          /* Cantonades arrodonides */
+  padding: 0.4rem 0.6rem;    /* menos padding que antes */
+  border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
   font-size: 1rem;
   transition: background 0.3s ease;
   display: inline-block;
   line-height: 1;
-  height: auto;
-  width: auto;
+  width: auto;               /* ancho automático según el contenido */
+  height: auto;              /* alto automático según contenido */
+  flex: 0 0 auto;            /* evita que el botón se estire */
 }
+
 .lista li button:hover {
   background: #c0392b;
 }
-
 
 
 
