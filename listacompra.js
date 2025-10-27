@@ -46,46 +46,48 @@ if (familia.password) {
 // ✅ Mostrar código y nombre
 codigoTexto.textContent = `Código de familia: ${codigo} (${familia.nombre})`;
 
-// 📦 Cargar lista
-let productos = JSON.parse(localStorage.getItem(`lista_${codigo}`)) || [];
-renderizarLista();
+// 🔗 Firebase
+const db = window.firebaseDB;
+const listaRef = window.firebaseRef(db, `listas/${codigo}`);
+
+// Productos locales para renderizar
+let productos = [];
+
+// 🔍 Escuchar cambios en tiempo real
+window.firebaseOnValue(listaRef, (snapshot) => {
+  const data = snapshot.val();
+  productos = data ? Object.entries(data).map(([key, value]) => ({ key, nombre: value })) : [];
+  renderizarLista();
+});
 
 // ➕ Añadir producto
 function agregarProducto() {
   const producto = input.value.trim();
   if (producto !== "") {
-    productos.push(producto);
-    guardarLista();
-    renderizarLista();
+    window.firebasePush(listaRef, producto);
     input.value = "";
     input.focus();
   }
 }
 
-// 🗑️ Eliminar producto con animación
+// 🗑️ Eliminar producto
 function eliminarProducto(index) {
-  const li = lista.children[index];
-  li.classList.add("eliminando");
-
-  setTimeout(() => {
-    productos.splice(index, 1);
-    guardarLista();
-    renderizarLista();
-  }, 400); // tiempo igual a la animación
+  const key = productos[index].key;
+  window.firebaseRemove(window.firebaseRef(db, `listas/${codigo}/${key}`));
 }
 
 // 🧾 Renderizar con numeración
 function renderizarLista() {
   lista.innerHTML = "";
-  productos.forEach((producto, index) => {
+  productos.forEach((item, index) => {
     const li = document.createElement("li");
 
     const span = document.createElement("span");
-    span.textContent = `${index + 1}. ${producto}`;
+    span.textContent = `${index + 1}. ${item.nombre}`;
 
     const btnEliminar = document.createElement("button");
     btnEliminar.textContent = "🗑️";
-    btnEliminar.setAttribute("aria-label", `Eliminar ${producto}`);
+    btnEliminar.setAttribute("aria-label", `Eliminar ${item.nombre}`);
     btnEliminar.addEventListener("click", () => eliminarProducto(index));
 
     li.appendChild(span);
@@ -94,21 +96,14 @@ function renderizarLista() {
   });
 }
 
-// 💾 Guardar lista
-function guardarLista() {
-  localStorage.setItem(`lista_${codigo}`, JSON.stringify(productos));
-}
-
-// 📲 Compartir por WhatsApp
+// 🔘 Botón compartir WhatsApp
 function compartirWhatsApp() {
   if (productos.length === 0) {
     alert("La lista está vacía.");
     return;
   }
-
   const mensaje = `🛒 Lista de la compra (${codigo}):\n` +
-    productos.map((p, i) => `${i + 1}. ${p}`).join("\n");
-
+    productos.map((p, i) => `${i + 1}. ${p.nombre}`).join("\n");
   const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
   window.open(url, "_blank");
 }

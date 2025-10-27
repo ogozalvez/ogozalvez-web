@@ -90,10 +90,10 @@ button:hover {
 
 /* Botón rojo de eliminar en la lista */
 .lista li button {
-  background: #e74c3c;       /* color rojo */
+  background: #e74c3c;
   color: white;
   border: none;
-  padding: 0.4rem 0.6rem;    /* menos padding que antes */
+  padding: 0.4rem 0.6rem;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
@@ -101,16 +101,16 @@ button:hover {
   transition: background 0.3s ease;
   display: inline-block;
   line-height: 1;
-  width: auto;               /* ancho automático según el contenido */
-  height: auto;              /* alto automático según contenido */
-  flex: 0 0 auto;            /* evita que el botón se estire */
+  width: auto;
+  height: auto;
+  flex: 0 0 auto;
 }
 
 .lista li button:hover {
   background: #c0392b;
 }
 
-/* Accions extra */
+/* 📲 Accions extra */
 #accionesExtras {
   text-align: center;
   margin-top: 1rem;
@@ -133,16 +133,6 @@ footer {
 
 /* ✨ Animació d'eliminació */
 @keyframes fadeOutRight {
-  0% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-}
-
-.eliminando {
-  animation: fadeOutRight 0.4s ease forwards;
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(40px); }
 }

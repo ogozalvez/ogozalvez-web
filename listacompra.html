@@ -37,6 +37,33 @@
     <p>© 2025 - Lista compartida por familias</p>
   </footer>
 
-  <script src="listacompra.js"></script>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCE_vOx4G6791luS7XlkZmtGghcr5s43zg",
+      authDomain: "listacomprafamilia.firebaseapp.com",
+      databaseURL: "https://listacomprafamilia-default-rtdb.firebaseio.com",
+      projectId: "listacomprafamilia",
+      storageBucket: "listacomprafamilia.appspot.com",
+      messagingSenderId: "906261582139",
+      appId: "1:906261582139:web:7b8582fb7857e3ee9f671e",
+      measurementId: "G-CJXRXED3XS"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Exponer Firebase al script principal
+    window.firebaseDB = db;
+    window.firebaseRef = ref;
+    window.firebaseOnValue = onValue;
+    window.firebasePush = push;
+    window.firebaseRemove = remove;
+  </script>
+
+  <script src="listacompra.js" type="module"></script>
 </body>
 </html>
