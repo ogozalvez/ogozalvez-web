@@ -15,14 +15,14 @@ const firebaseConfig = {
 };
 
 // ✅ Inicializar Firebase solo si no existe
-const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+const app = getApps().length > 0 ? getApps()[0] : initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
 
 // Iniciar sesión anónima
 signInAnonymously(auth)
   .then(() => console.log("Sesión anónima iniciada ✅"))
-  .catch((error) => console.error("Error en sesión anónima:", error));
+  .catch((error) => console.error("Error sesión anónima:", error));
 
 // 🔐 Familias y contraseñas
 const familias = {
