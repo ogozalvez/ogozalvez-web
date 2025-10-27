@@ -1,5 +1,5 @@
 // 🔐 Configuración Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import { getDatabase, ref, push, remove, onValue } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
@@ -14,10 +14,10 @@ const firebaseConfig = {
   appId: "1:906261582139:web:7b8582fb7857e3ee9f671e"
 };
 
-// Inicializar Firebase
-const app = initializeApp(firebaseConfig);
+// ✅ Inicializar Firebase solo si no existe
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getDatabase(app);
-const auth = getAuth();
+const auth = getAuth(app);
 
 // Iniciar sesión anónima
 signInAnonymously(auth)
