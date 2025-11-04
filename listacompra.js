@@ -19,7 +19,7 @@ const app = getApps().length > 0 ? getApps()[0] : initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
 
-// Iniciar sesión anónima en Firebase (sin usuario registrado)
+// Iniciar sesión anónima
 signInAnonymously(auth)
   .then(() => console.log("Sesión anónima iniciada ✅"))
   .catch((error) => console.error("Error sesión anónima:", error));
@@ -30,128 +30,123 @@ const input = document.getElementById("productoInput");
 const btnAgregar = document.getElementById("btnAgregar");
 const codigoTexto = document.getElementById("codigoFamilia");
 
-// 🔍 Obtener el código de familia de la URL (por ejemplo: ?codigo=AAA)
-const params = new URLSearchParams(window.location.search);
-const codigo = params.get("codigo");
+// 🔍 Función principal (async para usar await)
+async function init() {
+  const params = new URLSearchParams(window.location.search);
+  const codigo = params.get("codigo");
 
-// ⚠️ Validar que haya código
-if (!codigo) {
-  document.body.innerHTML = `
-    <main style="text-align:center; padding:2rem;">
-      <h2>🚫 Acceso denegado</h2>
-      <p>No se ha proporcionado un código de familia.</p>
-    </main>
-  `;
-  throw new Error("Código no proporcionado");
-}
-
-// 🔐 Comprobar contraseña en Firebase
-const passwordRef = ref(db, `familias/${codigo}/password`);
-const snapshot = await get(passwordRef);
-
-if (!snapshot.exists()) {
-  document.body.innerHTML = `
-    <main style="text-align:center; padding:2rem;">
-      <h2>❌ Familia no encontrada</h2>
-      <p>El código <b>${codigo}</b> no está registrado.</p>
-    </main>
-  `;
-  throw new Error("Código de familia no encontrado");
-}
-
-const passwordCorrecta = snapshot.val();
-const intento = prompt(`Introduce la contraseña de la familia ${codigo}:`);
-
-if (intento !== passwordCorrecta) {
-  document.body.innerHTML = `
-    <main style="text-align:center; padding:2rem;">
-      <h2>🔒 Contraseña incorrecta</h2>
-      <p>No tienes acceso a esta lista.</p>
-    </main>
-  `;
-  throw new Error("Contraseña incorrecta");
-}
-
-// ✅ Si todo correcto, mostrar el código activo
-codigoTexto.textContent = `Código de familia: ${codigo}`;
-
-// 📦 Referencia a los productos de esa familia
-const listaRef = ref(db, `listas/${codigo}/productos`);
-
-// 🧾 Variables
-let productos = [];
-let productosFirebase = {};
-
-// Escuchar cambios en tiempo real desde Firebase
-onValue(listaRef, (snapshot) => {
-  const data = snapshot.val() || {};
-  productosFirebase = data;
-  productos = Object.keys(data).map(key => ({
-    key: key,
-    valor: data[key]
-  }));
-  renderizarLista();
-});
-
-// ➕ Añadir producto
-function agregarProducto() {
-  const producto = input.value.trim();
-  if (producto !== "") {
-    push(listaRef, producto);
-    input.value = "";
-    input.focus();
+  // ⚠️ Validar que haya código
+  if (!codigo) {
+    document.body.innerHTML = `
+      <main style="text-align:center; padding:2rem;">
+        <h2>🚫 Acceso denegado</h2>
+        <p>No se ha proporcionado un código de familia.</p>
+      </main>`;
+    throw new Error("Código no proporcionado");
   }
-}
 
-// 🗑️ Eliminar producto
-function eliminarProducto(index) {
-  const key = productos[index].key;
-  remove(ref(db, `listas/${codigo}/productos/${key}`));
-}
+  // 🔐 Comprobar contraseña en Firebase
+  const passwordRef = ref(db, `familias/${codigo}/password`);
+  const snapshot = await get(passwordRef);
 
-// 🧾 Renderizar lista
-function renderizarLista() {
-  lista.innerHTML = "";
-  productos.forEach((productoObj, index) => {
-    const li = document.createElement("li");
+  if (!snapshot.exists()) {
+    document.body.innerHTML = `
+      <main style="text-align:center; padding:2rem;">
+        <h2>❌ Familia no encontrada</h2>
+        <p>El código <b>${codigo}</b> no está registrado.</p>
+      </main>`;
+    throw new Error("Código de familia no encontrado");
+  }
 
-    const span = document.createElement("span");
-    span.textContent = `${index + 1}. ${productoObj.valor}`;
+  const passwordCorrecta = snapshot.val();
+  const intento = prompt(`Introduce la contraseña de la familia ${codigo}:`);
 
-    const btnEliminar = document.createElement("button");
-    btnEliminar.textContent = "🗑️";
-    btnEliminar.setAttribute("aria-label", `Eliminar ${productoObj.valor}`);
-    btnEliminar.addEventListener("click", () => eliminarProducto(index));
+  if (intento !== passwordCorrecta) {
+    document.body.innerHTML = `
+      <main style="text-align:center; padding:2rem;">
+        <h2>🔒 Contraseña incorrecta</h2>
+        <p>No tienes acceso a esta lista.</p>
+      </main>`;
+    throw new Error("Contraseña incorrecta");
+  }
 
-    li.appendChild(span);
-    li.appendChild(btnEliminar);
-    lista.appendChild(li);
+  // ✅ Si todo correcto
+  codigoTexto.textContent = `Código de familia: ${codigo}`;
+
+  // 📦 Referencia a los productos
+  const listaRef = ref(db, `listas/${codigo}/productos`);
+  let productos = [];
+  let productosFirebase = {};
+
+  // Escuchar cambios en tiempo real
+  onValue(listaRef, (snapshot) => {
+    const data = snapshot.val() || {};
+    productosFirebase = data;
+    productos = Object.keys(data).map(key => ({
+      key: key,
+      valor: data[key]
+    }));
+    renderizarLista();
   });
-}
 
-// 🎯 Eventos
-btnAgregar.addEventListener("click", agregarProducto);
-input.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") agregarProducto();
-});
-
-// 📲 Compartir por WhatsApp
-function compartirWhatsApp() {
-  if (productos.length === 0) {
-    alert("La lista está vacía.");
-    return;
+  // ➕ Añadir producto
+  function agregarProducto() {
+    const producto = input.value.trim();
+    if (producto !== "") {
+      push(listaRef, producto);
+      input.value = "";
+      input.focus();
+    }
   }
 
-  const mensaje = `🛒 Lista de la compra (${codigo}):\n` +
-    productos.map((p, i) => `${i + 1}. ${p.valor}`).join("\n");
+  // 🗑️ Eliminar producto
+  function eliminarProducto(index) {
+    const key = productos[index].key;
+    remove(ref(db, `listas/${codigo}/productos/${key}`));
+  }
 
-  const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
-  window.open(url, "_blank");
+  // 🧾 Renderizar lista
+  function renderizarLista() {
+    lista.innerHTML = "";
+    productos.forEach((productoObj, index) => {
+      const li = document.createElement("li");
+      const span = document.createElement("span");
+      span.textContent = `${index + 1}. ${productoObj.valor}`;
+      const btnEliminar = document.createElement("button");
+      btnEliminar.textContent = "🗑️";
+      btnEliminar.setAttribute("aria-label", `Eliminar ${productoObj.valor}`);
+      btnEliminar.addEventListener("click", () => eliminarProducto(index));
+      li.appendChild(span);
+      li.appendChild(btnEliminar);
+      lista.appendChild(li);
+    });
+  }
+
+  // 🎯 Eventos
+  btnAgregar.addEventListener("click", agregarProducto);
+  input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") agregarProducto();
+  });
+
+  // 📲 Compartir por WhatsApp
+  function compartirWhatsApp() {
+    if (productos.length === 0) {
+      alert("La lista está vacía.");
+      return;
+    }
+    const mensaje = `🛒 Lista de la compra (${codigo}):\n` +
+      productos.map((p, i) => `${i + 1}. ${p.valor}`).join("\n");
+    const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank");
+  }
+
+  // Crear botón de compartir
+  const btnCompartir = document.createElement("button");
+  btnCompartir.textContent = "📲 Compartir por WhatsApp";
+  btnCompartir.style.marginTop = "1rem";
+  btnCompartir.addEventListener("click", compartirWhatsApp);
+  document.getElementById("accionesExtras").appendChild(btnCompartir);
 }
 
-// Crear botón de compartir
-const btnCompartir = document.createElement("button");
-btnCompartir.textContent = "📲 Compartir por WhatsApp";
-btnCompartir.style.marginTop = "1rem";
-btnCompartir.addEventListener("click", compartirWhatsApp);
-document.getElementById("accionesExtras").appendChild(btnCompartir);
+// 🚀 Ejecutar la función principal
+init();
