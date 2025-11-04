@@ -1,146 +1,157 @@
 // 🔐 Configuración Firebase
-import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"; // Importa funciones para inicializar la app de Firebase
-import { getDatabase, ref, push, remove, onValue } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js"; // Importa funciones del módulo Realtime Database
-import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"; // Importa funciones de autenticación anónima
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getDatabase, ref, push, remove, onValue, get } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
 // Configuración de tu proyecto Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyCE_vOx4G6791luS7XlkZmtGghcr5s43zg", // Clave pública de la API de Firebase
-  authDomain: "listacomprafamilia.firebaseapp.com", // Dominio de autenticación del proyecto
-  databaseURL: "https://listacomprafamilia-default-rtdb.firebaseio.com", // URL de la base de datos en tiempo real
-  projectId: "listacomprafamilia", // ID del proyecto
-  storageBucket: "listacomprafamilia.appspot.com", // Almacenamiento (no se usa aquí)
-  messagingSenderId: "906261582139", // ID para mensajería (no se usa aquí)
-  appId: "1:906261582139:web:7b8582fb7857e3ee9f671e" // ID único de la app
+  apiKey: "AIzaSyCE_vOx4G6791luS7XlkZmtGghcr5s43zg",
+  authDomain: "listacomprafamilia.firebaseapp.com",
+  databaseURL: "https://listacomprafamilia-default-rtdb.firebaseio.com",
+  projectId: "listacomprafamilia",
+  storageBucket: "listacomprafamilia.appspot.com",
+  messagingSenderId: "906261582139",
+  appId: "1:906261582139:web:7b8582fb7857e3ee9f671e"
 };
 
 // ✅ Inicializar Firebase solo si no existe una instancia previa
-const app = getApps().length > 0 ? getApps()[0] : initializeApp(firebaseConfig); // Si ya está inicializada, reutiliza esa instancia
-const db = getDatabase(app); // Obtiene referencia a la base de datos
-const auth = getAuth(app); // Obtiene el sistema de autenticación
+const app = getApps().length > 0 ? getApps()[0] : initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth(app);
 
 // Iniciar sesión anónima en Firebase (sin usuario registrado)
 signInAnonymously(auth)
-  .then(() => console.log("Sesión anónima iniciada ✅")) // Mensaje si la conexión fue correcta
-  .catch((error) => console.error("Error sesión anónima:", error)); // Mensaje de error si falla
+  .then(() => console.log("Sesión anónima iniciada ✅"))
+  .catch((error) => console.error("Error sesión anónima:", error));
 
-
-// 🔗 Elementos del DOM (elementos del HTML que vamos a usar)
-const lista = document.getElementById("listaProductos"); // Lista donde se mostrarán los productos
-const input = document.getElementById("productoInput"); // Campo de texto para escribir un producto
-const btnAgregar = document.getElementById("btnAgregar"); // Botón para añadir productos
-const codigoTexto = document.getElementById("codigoFamilia"); // Texto donde se muestra el código de familia activo
+// 🔗 Elementos del DOM
+const lista = document.getElementById("listaProductos");
+const input = document.getElementById("productoInput");
+const btnAgregar = document.getElementById("btnAgregar");
+const codigoTexto = document.getElementById("codigoFamilia");
 
 // 🔍 Obtener el código de familia de la URL (por ejemplo: ?codigo=AAA)
 const params = new URLSearchParams(window.location.search);
-const codigo = params.get("codigo"); // Extrae el valor del parámetro "codigo"
+const codigo = params.get("codigo");
 
-// Validar que el código exista y sea válido
-if (!codigo || !familias[codigo]) {
+// ⚠️ Validar que haya código
+if (!codigo) {
   document.body.innerHTML = `
     <main style="text-align:center; padding:2rem;">
       <h2>🚫 Acceso denegado</h2>
-      <p>Este código de familia no está autorizado.</p>
+      <p>No se ha proporcionado un código de familia.</p>
     </main>
   `;
-  throw new Error("Código no válido"); // Detiene el script si el código no es válido
+  throw new Error("Código no proporcionado");
 }
 
-// Pedir contraseña al usuario
+// 🔐 Comprobar contraseña en Firebase
+const passwordRef = ref(db, `listas/${codigo}/info/password`);
+const snapshot = await get(passwordRef);
+
+if (!snapshot.exists()) {
+  document.body.innerHTML = `
+    <main style="text-align:center; padding:2rem;">
+      <h2>❌ Familia no encontrada</h2>
+      <p>El código <b>${codigo}</b> no está registrado.</p>
+    </main>
+  `;
+  throw new Error("Código de familia no encontrado");
+}
+
+const passwordCorrecta = snapshot.val();
 const intento = prompt(`Introduce la contraseña de la familia ${codigo}:`);
-if (intento !== familias[codigo]) { // Si la contraseña no coincide
+
+if (intento !== passwordCorrecta) {
   document.body.innerHTML = `
     <main style="text-align:center; padding:2rem;">
       <h2>🔒 Contraseña incorrecta</h2>
       <p>No tienes acceso a esta lista.</p>
     </main>
   `;
-  throw new Error("Contraseña incorrecta"); // Detiene el script si la contraseña es incorrecta
+  throw new Error("Contraseña incorrecta");
 }
 
-// Mostrar en pantalla el código de la familia actual
+// ✅ Si todo correcto, mostrar el código activo
 codigoTexto.textContent = `Código de familia: ${codigo}`;
 
-// 📦 Crear una referencia a la lista de esa familia en Firebase
-const listaRef = ref(db, `listas/${codigo}`); // Cada familia tiene su propia lista
+// 📦 Referencia a los productos de esa familia
+const listaRef = ref(db, `listas/${codigo}/productos`);
 
-// 🧾 Variables para manejar los productos
-let productos = []; // Array local para guardar productos
-let productosFirebase = {}; // Objeto con los datos originales de Firebase
+// 🧾 Variables
+let productos = [];
+let productosFirebase = {};
 
-// Escuchar cambios en tiempo real desde Firebase y actualizar la lista automáticamente
+// Escuchar cambios en tiempo real desde Firebase
 onValue(listaRef, (snapshot) => {
-  const data = snapshot.val() || {}; // Obtiene los datos o un objeto vacío si no hay nada
-  productosFirebase = data; // Guarda los datos completos
-  // Convierte el objeto en un array con clave y valor
+  const data = snapshot.val() || {};
+  productosFirebase = data;
   productos = Object.keys(data).map(key => ({
     key: key,
     valor: data[key]
   }));
-  renderizarLista(); // Actualiza la lista visualmente
+  renderizarLista();
 });
 
-// ➕ Función para añadir un producto nuevo
+// ➕ Añadir producto
 function agregarProducto() {
-  const producto = input.value.trim(); // Quita espacios sobrantes
-  if (producto !== "") { // Si no está vacío
-    push(listaRef, producto); // Lo añade a Firebase
-    input.value = ""; // Limpia el campo
-    input.focus(); // Devuelve el foco al input
+  const producto = input.value.trim();
+  if (producto !== "") {
+    push(listaRef, producto);
+    input.value = "";
+    input.focus();
   }
 }
 
-// 🗑️ Función para eliminar un producto por índice
+// 🗑️ Eliminar producto
 function eliminarProducto(index) {
-  const key = productos[index].key; // Obtiene la clave única del producto en Firebase
-  remove(ref(db, `listas/${codigo}/${key}`)); // Lo elimina de la base de datos
+  const key = productos[index].key;
+  remove(ref(db, `listas/${codigo}/productos/${key}`));
 }
 
-// 🧾 Función que muestra la lista actualizada con numeración
+// 🧾 Renderizar lista
 function renderizarLista() {
-  lista.innerHTML = ""; // Limpia la lista visual
-  productos.forEach((productoObj, index) => { // Recorre todos los productos
-    const li = document.createElement("li"); // Crea un elemento de lista
+  lista.innerHTML = "";
+  productos.forEach((productoObj, index) => {
+    const li = document.createElement("li");
 
-    const span = document.createElement("span"); // Texto del producto
-    span.textContent = `${index + 1}. ${productoObj.valor}`; // Añade número y nombre
+    const span = document.createElement("span");
+    span.textContent = `${index + 1}. ${productoObj.valor}`;
 
-    const btnEliminar = document.createElement("button"); // Botón para eliminar
-    btnEliminar.textContent = "🗑️"; // Icono de papelera
-    btnEliminar.setAttribute("aria-label", `Eliminar ${productoObj.valor}`); // Accesibilidad
-    btnEliminar.addEventListener("click", () => eliminarProducto(index)); // Evento al pulsar eliminar
+    const btnEliminar = document.createElement("button");
+    btnEliminar.textContent = "🗑️";
+    btnEliminar.setAttribute("aria-label", `Eliminar ${productoObj.valor}`);
+    btnEliminar.addEventListener("click", () => eliminarProducto(index));
 
-    li.appendChild(span); // Añade el texto al elemento de lista
-    li.appendChild(btnEliminar); // Añade el botón al elemento de lista
-    lista.appendChild(li); // Añade el elemento completo a la lista en el HTML
+    li.appendChild(span);
+    li.appendChild(btnEliminar);
+    lista.appendChild(li);
   });
 }
 
-// 🎯 Eventos de interacción
-btnAgregar.addEventListener("click", agregarProducto); // Añadir producto con botón
-input.addEventListener("keypress", (e) => { // Añadir producto con tecla Enter
+// 🎯 Eventos
+btnAgregar.addEventListener("click", agregarProducto);
+input.addEventListener("keypress", (e) => {
   if (e.key === "Enter") agregarProducto();
 });
 
-// 📲 Función para compartir la lista por WhatsApp
+// 📲 Compartir por WhatsApp
 function compartirWhatsApp() {
-  if (productos.length === 0) { // Si la lista está vacía
+  if (productos.length === 0) {
     alert("La lista está vacía.");
     return;
   }
 
-  // Crea el mensaje con formato numerado
   const mensaje = `🛒 Lista de la compra (${codigo}):\n` +
     productos.map((p, i) => `${i + 1}. ${p.valor}`).join("\n");
 
-  // Crea un enlace directo a WhatsApp con el mensaje
   const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
-  window.open(url, "_blank"); // Abre WhatsApp en una nueva pestaña
+  window.open(url, "_blank");
 }
 
-// Crea el botón de compartir dinámicamente
+// Crear botón de compartir
 const btnCompartir = document.createElement("button");
-btnCompartir.textContent = "📲 Compartir por WhatsApp"; // Texto del botón
-btnCompartir.style.marginTop = "1rem"; // Espaciado superior
-btnCompartir.addEventListener("click", compartirWhatsApp); // Evento de clic
-document.getElementById("accionesExtras").appendChild(btnCompartir); // Lo añade al contenedor HTML
+btnCompartir.textContent = "📲 Compartir por WhatsApp";
+btnCompartir.style.marginTop = "1rem";
+btnCompartir.addEventListener("click", compartirWhatsApp);
+document.getElementById("accionesExtras").appendChild(btnCompartir);
