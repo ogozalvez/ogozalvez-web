@@ -24,14 +24,6 @@ signInAnonymously(auth)
   .then(() => console.log("Sesión anónima iniciada ✅")) // Mensaje si la conexión fue correcta
   .catch((error) => console.error("Error sesión anónima:", error)); // Mensaje de error si falla
 
-// 🔐 Familias y contraseñas
-const familias = {
-  "AAA": "1234",
-  "BBB": "lopez123",
-  "CCC": "torres456",
-  "FAM123": "martinez789",
-  "OGZ2025": "ogzpass"
-}; // Objeto que asocia códigos de familia con sus contraseñas
 
 // 🔗 Elementos del DOM (elementos del HTML que vamos a usar)
 const lista = document.getElementById("listaProductos"); // Lista donde se mostrarán los productos
