@@ -46,7 +46,7 @@ if (!codigo) {
 }
 
 // 🔐 Comprobar contraseña en Firebase
-const passwordRef = ref(db, `listas/${codigo}/info/password`);
+const passwordRef = ref(db, `familias/${codigo}/password`);
 const snapshot = await get(passwordRef);
 
 if (!snapshot.exists()) {
