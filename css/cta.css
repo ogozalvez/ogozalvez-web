@@ -26,20 +26,20 @@ body {
 }
 
 /* =========================================
-   HEADER Y NAVEGACIÓN (COMÚN)
+   HEADER UNIFICADO (PC Y MÓVIL)
    ========================================= */
 header, .main-header {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-med) 100%);
   color: white;
-  padding: 40px 20px 140px;
+  padding: 40px 20px 120px; /* Reducido para mejor consistencia */
   text-align: center;
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
   position: relative;
   z-index: 5;
 }
 
 header h1, .nav-container h1 {
-  font-size: 3rem;
+  font-size: 1.2rem;
   font-weight: 800;
   letter-spacing: 2px;
   margin-bottom: 25px;
@@ -59,7 +59,7 @@ header h1, .nav-container h1 {
   text-decoration: none;
   font-weight: 600;
   font-size: 0.8rem;
-  padding: 10px 20px;
+  padding: 10px 18px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 50px;
   transition: var(--transition);
@@ -70,127 +70,93 @@ header h1, .nav-container h1 {
   background: var(--accent);
   color: var(--primary);
   border-color: transparent;
-  transform: translateY(-2px);
 }
 
 /* =========================================
-   HERO (PÁGINA DE CATEGORÍA)
+   HERO SECTION (PÁGINA CATEGORÍA)
    ========================================= */
 .header-hero {
   max-width: 800px;
-  margin: 50px auto 0;
+  margin: 30px auto 0;
+  padding: 0 15px;
 }
 
-.header-hero h2 {
-  font-size: 3.5rem;
+.header-hero h2, .header-hero h1 {
+  font-size: 3rem;
   font-weight: 900;
-  letter-spacing: -2px;
-  margin: 10px 0;
-  line-height: 1;
+  letter-spacing: -1.5px;
+  margin: 8px 0;
+  line-height: 1.1;
   color: white;
 }
 
 .header-hero p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   opacity: 0.8;
-  font-weight: 400;
   color: white;
 }
 
 .badge {
   background: var(--accent);
   color: var(--primary);
-  padding: 6px 16px;
+  padding: 5px 14px;
   border-radius: 50px;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 800;
   text-transform: uppercase;
   display: inline-block;
 }
 
 /* =========================================
-   CONTENEDORES Y REJILLAS
+   CONTENEDOR GLOBAL (SOLAPAMIENTO)
    ========================================= */
 .container {
   max-width: 1100px;
-  margin: -70px auto 80px;
+  margin: -60px auto 60px; /* Unificado para que ambas suban igual */
   padding: 0 20px;
   position: relative;
   z-index: 10;
 }
 
-/* Grid para CTA.HTML (Inicio) */
-.cards-grid {
+/* Grids Unificados */
+.cards-grid, .exam-grid {
   display: grid;
-  gap: 30px;
+  gap: 20px;
+}
+
+.cards-grid {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-/* Grid para CATEGORÍAS (Lista Exámenes) */
 .exam-grid {
-  display: grid;
-  gap: 15px;
   max-width: 800px;
   margin: 0 auto;
 }
 
 /* =========================================
-   ESTILOS DE TARJETAS (PÁGINA INICIO)
+   ESTILO CARDS (CTA.HTML)
    ========================================= */
 .card {
   background: var(--white);
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
   box-shadow: var(--shadow);
   transition: var(--transition);
-  display: block;
 }
 
-.card:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 30px 50px -10px rgba(0,0,0,0.15);
-}
-
-.card-image {
-  height: 200px;
-  overflow: hidden;
-  background: #ddd;
-}
-
-.card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: 0.6s ease;
-}
-
-.card:hover .card-image img { transform: scale(1.1); }
-
-.card-content { padding: 25px; text-align: center; }
-
-.btn-shine {
-  display: inline-block;
-  padding: 10px 25px;
-  background: #f1f5f9;
-  border-radius: 50px;
-  font-weight: 700;
-  font-size: 0.8rem;
-  color: var(--primary-med);
-  text-transform: uppercase;
-  transition: 0.3s;
-}
-
-.card:hover .btn-shine { background: var(--primary-med); color: white; }
+.card-image { height: 180px; background: #ddd; }
+.card-image img { width: 100%; height: 100%; object-fit: cover; }
+.card-content { padding: 20px; text-align: center; }
 
 /* =========================================
-   ESTILOS DE EXAMEN (PÁGINA CATEGORÍA)
+   ESTILO EXAMEN (1A-CAT.HTML)
    ========================================= */
 .exam-card {
   background: var(--white);
-  padding: 24px;
-  border-radius: 24px;
+  padding: 20px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -199,62 +165,62 @@ header h1, .nav-container h1 {
   transition: var(--transition);
 }
 
-.exam-card:hover {
-  transform: scale(1.02) translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-}
-
 .exam-icon {
-  width: 50px; height: 50px;
+  width: 48px; height: 48px;
   background: #fff1f2;
   color: var(--error);
-  border-radius: 14px;
+  border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  font-weight: 900; font-size: 0.7rem;
-  margin-right: 20px; flex-shrink: 0;
+  font-weight: 800; font-size: 0.7rem;
+  margin-right: 15px; flex-shrink: 0;
 }
 
-.exam-details h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 2px; }
-.exam-details p { font-size: 0.9rem; color: var(--text-muted); }
-
-.exam-download-btn { margin-left: auto; color: var(--text-muted); opacity: 0.5; transition: 0.3s; }
-.exam-card:hover .exam-download-btn { color: var(--accent); opacity: 1; }
+.exam-details h2, .exam-details h3 { font-size: 1.1rem; font-weight: 700; }
+.exam-details p { font-size: 0.85rem; color: var(--text-muted); }
 
 /* =========================================
-   SISTEMA MÓVIL
+   SIDEBAR MÓVIL
    ========================================= */
 .menu-toggle {
-  display: none; position: fixed; top: 20px; right: 20px; z-index: 1100;
+  display: none; position: fixed; top: 15px; right: 15px; z-index: 1100;
   background: var(--accent); border: none; width: 45px; height: 45px; border-radius: 12px;
   flex-direction: column; align-items: center; justify-content: center; gap: 4px;
 }
-
-.menu-toggle span { width: 22px; height: 3px; background: var(--primary); border-radius: 10px; }
+.menu-toggle span { width: 22px; height: 3px; background: var(--primary); border-radius: 5px; }
 
 .sidebar {
-  position: fixed; top: 0; right: -300px; width: 280px; height: 100%;
-  background: white; z-index: 1050; padding: 80px 20px; transition: 0.4s;
+  position: fixed; top: 0; right: -280px; width: 280px; height: 100%;
+  background: white; z-index: 1050; padding: 70px 20px; transition: 0.4s ease-in-out;
 }
-
 .sidebar.open { right: 0; }
-
-.sidebar a { display: block; padding: 15px; color: var(--text-main); text-decoration: none; font-weight: 600; border-radius: 10px; }
-
-.menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1040; display: none; backdrop-filter: blur(4px); }
-
-.menu-overlay.active { display: block; }
+.sidebar a { display: block; padding: 15px; color: var(--text-main); text-decoration: none; font-weight: 600; border-bottom: 1px solid #f1f5f9; }
 
 /* =========================================
-   ANIMACIONES Y RESPONSIVE
+   RESPONSIVE FINAL (AQUÍ SE IGUALAN)
    ========================================= */
-.fade-in { animation: slideUp 0.6s ease forwards; opacity: 0; }
-@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
 @media (max-width: 768px) {
   .nav-desktop { display: none; }
   .menu-toggle { display: flex; }
-  .header-hero h2 { font-size: 2.5rem; }
-  .container { margin-top: -60px; }
+
+  header, .main-header { 
+    padding: 30px 15px 100px; 
+    clip-path: polygon(0 0, 100% 0, 100% 92%, 0% 100%);
+  }
+
+  .header-hero { margin-top: 15px; }
+  .header-hero h1, .header-hero h2 { font-size: 2.2rem; }
+
+  .container { 
+    margin-top: -50px; /* Igual en ambas páginas */
+    padding: 0 15px; 
+  }
+
+  /* Ajuste para que las filas de examen no se vean apretadas */
+  .exam-card { padding: 15px; }
+  .exam-details h2, .exam-details h3 { font-size: 1rem; }
+  
+  /* Aseguramos que las tarjetas de inicio ocupen el ancho completo si es necesario */
+  .cards-grid { gap: 15px; }
 }
 
-footer { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 0.85rem; }
+footer { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.8rem; }
