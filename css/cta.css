@@ -1,3 +1,17 @@
+/* VARIABLES DE DISEÑO - Cambia los colores aquí */
+:root {
+  --primary: #005066;
+  --primary-dark: #003844;
+  --accent: #00b4d8;
+  --bg: #f0f4f8;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --white: #ffffff;
+  --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
+  --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.15);
+  --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,83 +19,149 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #eef3f7;
-  color: #1d2a35;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg);
+  color: var(--text-main);
+  line-height: 1.5;
 }
 
-/* HEADER */
+/* HEADER CON GRADIENTE Y CLIP-PATH */
 header {
-  background: #003844;
-  color: white;
-  padding: 25px;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: var(--white);
+  padding: 60px 20px 80px;
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,.2);
+  clip-path: ellipse(150% 100% at 50% 0%);
 }
 
-/* MENU */
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 5px;
+}
+
+header p {
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+/* NAVEGACIÓN FLOTANTE (GLASSMORPHISM) */
 nav {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  background: #005066;
-  padding: 12px;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  max-width: fit-content;
+  margin: -30px auto 0;
+  padding: 8px;
+  border-radius: 100px;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 20px;
+  z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 nav a {
-  color: white;
+  color: var(--primary);
   text-decoration: none;
-  font-weight: bold;
-  padding: 8px 14px;
-  border-radius: 8px;
-  transition: 0.3s;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: var(--transition);
+  font-size: 0.9rem;
 }
 
 nav a:hover {
-  background: rgba(255,255,255,0.2);
+  background: var(--primary);
+  color: var(--white);
 }
 
-/* CARDS */
-.cards {
+/* GRID DE TARJETAS */
+.cards-container {
   max-width: 1200px;
-  margin: 40px auto;
+  margin: 60px auto;
   display: grid;
-  gap: 25px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  padding: 0 20px;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  padding: 0 25px;
 }
 
 .card {
-  background: white;
-  border-radius: 14px;
+  background: var(--white);
+  border-radius: 24px;
   overflow: hidden;
-  text-align: center;
   text-decoration: none;
   color: inherit;
-  box-shadow: 0 4px 14px rgba(0,0,0,.12);
-  transition: transform .3s, box-shadow .3s;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+.card-img-wrapper {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
 }
 
 .card img {
   width: 100%;
-  height: 180px;
+  height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.card-info {
+  padding: 20px;
+  text-align: center;
 }
 
 .card h2 {
-  padding: 15px;
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: var(--primary-dark);
 }
 
+.card span {
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* EFECTOS HOVER */
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0,0,0,.2);
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card:hover img {
+  transform: scale(1.1);
 }
 
 /* FOOTER */
 footer {
   text-align: center;
-  padding: 25px;
-  margin-top: 40px;
-  background: #002b36;
-  color: white;
+  padding: 50px 20px;
+  background: #f8fafc;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  header h1 { font-size: 1.8rem; }
+  nav {
+    width: 95%;
+    gap: 2px;
+  }
+  nav a {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+  }
 }
