@@ -39,7 +39,7 @@ header, .main-header {
 }
 
 header h1, .nav-container h1 {
-  font-size: 3rem;
+  font-size: rem;
   font-weight: 800;
   letter-spacing: 2px;
   margin-bottom: 25px;
