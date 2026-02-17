@@ -1,52 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  margin: 0;
-  padding: 20px;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+  background: #eef3f7;
+  color: #1d2a35;
 }
 
-h1 {
+/* HEADER */
+header {
+  background: #003844;
+  color: white;
+  padding: 25px;
   text-align: center;
-  margin-bottom: 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.2);
 }
 
-details {
-  background: white;
-  margin-bottom: 12px;
-  border-radius: 10px;
-  padding: 12px 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+/* MENU */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background: #005066;
+  padding: 12px;
 }
 
-summary {
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-ul {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 10px;
-}
-
-li {
-  margin: 8px 0;
-}
-
-a {
+nav a {
+  color: white;
   text-decoration: none;
-  color: #1a4b9a;
-  background: #eef3ff;
-  padding: 8px 10px;
-  border-radius: 6px;
-  display: inline-block;
-  transition: 0.2s;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: 0.3s;
 }
 
-a:hover {
-  background: #dbe7ff;
+nav a:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* CARDS */
+.cards {
+  max-width: 1200px;
+  margin: 40px auto;
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  padding: 0 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 14px rgba(0,0,0,.12);
+  transition: transform .3s, box-shadow .3s;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card h2 {
+  padding: 15px;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,.2);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 25px;
+  margin-top: 40px;
+  background: #002b36;
+  color: white;
 }
