@@ -3,76 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex">
-  <title>CTA Exámenes | Panel de Control</title>
-  
+  <title>CTA Exámenes | Panel Pro</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/cta.css">
 </head>
 <body>
 
-<header>
-  <div class="header-content">
-    <h1>📘 CTA EXÁMENES</h1>
-    <p>Plataforma de gestión de categorías</p>
-  </div>
-</header>
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+  <span></span><span></span><span></span>
+</button>
 
-<nav>
-  <a href="cta.html">Inicio</a>
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">Menú</div>
+  <a href="cta.html" class="active">Inicio</a>
+  <a href="3a-rfef.html">3ª RFEF</a>
   <a href="1a-cat.html">1ª CAT</a>
   <a href="2a-cat.html">2ª CAT</a>
   <a href="3a-cat.html">3ª CAT</a>
   <a href="asistentes.html">Asistentes</a>
 </nav>
 
-<main class="cards-container">
+<header>
+  <h1>📘 CTA EXÁMENES</h1>
+  <nav class="nav-desktop">
+    <a href="cta.html" class="active">Inicio</a>
+    <a href="3a-rfef.html">3ª RFEF</a>
+    <a href="1a-cat.html">1ª CAT</a>
+    <a href="2a-cat.html">2ª CAT</a>
+    <a href="3a-cat.html">3ª CAT</a>
+    <a href="asistentes.html">Asistentes</a>
+  </nav>
+</header>
 
-  <a href="1a-cat.html" class="card">
-    <div class="card-img-wrapper">
-      <img src="img/1a.jpg" alt="1ª Catalana">
-    </div>
-    <div class="card-info">
-      <h2>1ª Catalana</h2>
-      <span>Ver exámenes &rarr;</span>
-    </div>
-  </a>
+<main class="container">
+  <div class="cards-grid">
+    
+    <a href="3a-rfef.html" class="card fade-in">
+      <div class="card-image"><img src="img/3arfef.jpg" alt="3ª RFEF"></div>
+      <div class="card-content">
+        <h2>3ª RFEF</h2>
+        <span class="btn-shine">Acceder</span>
+      </div>
+    </a>
 
-  <a href="2a-cat.html" class="card">
-    <div class="card-img-wrapper">
-      <img src="img/2a.jpg" alt="2ª Catalana">
-    </div>
-    <div class="card-info">
-      <h2>2ª Catalana</h2>
-      <span>Ver exámenes &rarr;</span>
-    </div>
-  </a>
+    <a href="1a-cat.html" class="card fade-in" style="animation-delay: 0.1s;">
+      <div class="card-image"><img src="img/1a.jpg" alt="1ª CAT"></div>
+      <div class="card-content">
+        <h2>1ª Catalana</h2>
+        <span class="btn-shine">Acceder</span>
+      </div>
+    </a>
+    
+    <a href="2a-cat.html" class="card fade-in" style="animation-delay: 0.2s;">
+      <div class="card-image"><img src="img/2a.jpg" alt="2ª CAT"></div>
+      <div class="card-content">
+        <h2>2ª Catalana</h2>
+        <span class="btn-shine">Acceder</span>
+      </div>
+    </a>
 
-  <a href="3a-cat.html" class="card">
-    <div class="card-img-wrapper">
-      <img src="img/3a.jpg" alt="3ª Catalana">
-    </div>
-    <div class="card-info">
-      <h2>3ª Catalana</h2>
-      <span>Ver exámenes &rarr;</span>
-    </div>
-  </a>
+    <a href="3a-cat.html" class="card fade-in" style="animation-delay: 0.3s;">
+      <div class="card-image"><img src="img/3a.jpg" alt="3ª CAT"></div>
+      <div class="card-content">
+        <h2>3ª Catalana</h2>
+        <span class="btn-shine">Acceder</span>
+      </div>
+    </a>
 
-  <a href="asistentes.html" class="card">
-    <div class="card-img-wrapper">
-      <img src="img/asistentes.jpg" alt="Asistentes">
-    </div>
-    <div class="card-info">
-      <h2>Asistentes</h2>
-      <span>Ver exámenes &rarr;</span>
-    </div>
-  </a>
+    <a href="asistentes.html" class="card fade-in" style="animation-delay: 0.4s;">
+      <div class="card-image"><img src="img/asistentes.jpg" alt="Asistentes"></div>
+      <div class="card-content">
+        <h2>Asistentes</h2>
+        <span class="btn-shine">Acceder</span>
+      </div>
+    </a>
 
+  </div>
 </main>
 
 <footer>
-  <p>© 2026 CTA Exámenes · Todos los derechos reservados</p>
+  © 2026 CTA Exámenes · Comité de Árbitros
 </footer>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('menuOverlay');
+
+  [toggle, overlay].forEach(el => el.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+  }));
+</script>
 
 </body>
 </html>

@@ -1,167 +1,260 @@
-/* VARIABLES DE DISEÑO - Cambia los colores aquí */
+/* =========================================
+   VARIABLES Y CONFIGURACIÓN GLOBAL
+   ========================================= */
 :root {
-  --primary: #005066;
-  --primary-dark: #003844;
+  --primary: #001a20;
+  --primary-med: #003844;
+  --primary-light: #005066;
   --accent: #00b4d8;
-  --bg: #f0f4f8;
+  --white: #ffffff;
+  --bg: #f1f5f9;
   --text-main: #1e293b;
   --text-muted: #64748b;
-  --white: #ffffff;
-  --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
-  --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.15);
+  --error: #e11d48;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: var(--bg);
   color: var(--text-main);
-  line-height: 1.5;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* HEADER CON GRADIENTE Y CLIP-PATH */
-header {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-  color: var(--white);
-  padding: 60px 20px 80px;
+/* =========================================
+   HEADER Y NAVEGACIÓN (COMÚN)
+   ========================================= */
+header, .main-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-med) 100%);
+  color: white;
+  padding: 40px 20px 140px;
   text-align: center;
-  clip-path: ellipse(150% 100% at 50% 0%);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+  position: relative;
+  z-index: 5;
 }
 
-header h1 {
-  font-size: 2.5rem;
+header h1, .nav-container h1 {
+  font-size: 3rem;
   font-weight: 800;
-  letter-spacing: -1px;
-  margin-bottom: 5px;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  opacity: 0.9;
+  text-transform: uppercase;
 }
 
-header p {
-  opacity: 0.8;
-  font-weight: 400;
-}
-
-/* NAVEGACIÓN FLOTANTE (GLASSMORPHISM) */
-nav {
+.nav-desktop {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  max-width: fit-content;
-  margin: -30px auto 0;
-  padding: 8px;
-  border-radius: 100px;
-  box-shadow: var(--shadow-sm);
-  position: sticky;
-  top: 20px;
-  z-index: 1000;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-nav a {
-  color: var(--primary);
+.nav-desktop a {
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   font-weight: 600;
+  font-size: 0.8rem;
   padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 50px;
   transition: var(--transition);
-  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-nav a:hover {
-  background: var(--primary);
-  color: var(--white);
+.nav-desktop a:hover, .nav-desktop a.active {
+  background: var(--accent);
+  color: var(--primary);
+  border-color: transparent;
+  transform: translateY(-2px);
 }
 
-/* GRID DE TARJETAS */
-.cards-container {
-  max-width: 1200px;
-  margin: 60px auto;
+/* =========================================
+   HERO (PÁGINA DE CATEGORÍA)
+   ========================================= */
+.header-hero {
+  max-width: 800px;
+  margin: 50px auto 0;
+}
+
+.header-hero h2 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin: 10px 0;
+  line-height: 1;
+  color: white;
+}
+
+.header-hero p {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  font-weight: 400;
+  color: white;
+}
+
+.badge {
+  background: var(--accent);
+  color: var(--primary);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+/* =========================================
+   CONTENEDORES Y REJILLAS
+   ========================================= */
+.container {
+  max-width: 1100px;
+  margin: -70px auto 80px;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Grid para CTA.HTML (Inicio) */
+.cards-grid {
   display: grid;
   gap: 30px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  padding: 0 25px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+/* Grid para CATEGORÍAS (Lista Exámenes) */
+.exam-grid {
+  display: grid;
+  gap: 15px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* =========================================
+   ESTILOS DE TARJETAS (PÁGINA INICIO)
+   ========================================= */
 .card {
   background: var(--white);
   border-radius: 24px;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow);
   transition: var(--transition);
-  border: 1px solid rgba(0,0,0,0.03);
+  display: block;
 }
 
-.card-img-wrapper {
-  position: relative;
+.card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 30px 50px -10px rgba(0,0,0,0.15);
+}
+
+.card-image {
   height: 200px;
   overflow: hidden;
+  background: #ddd;
 }
 
-.card img {
+.card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: 0.6s ease;
 }
 
-.card-info {
-  padding: 20px;
-  text-align: center;
-}
+.card:hover .card-image img { transform: scale(1.1); }
 
-.card h2 {
-  font-size: 1.25rem;
-  margin-bottom: 8px;
-  color: var(--primary-dark);
-}
+.card-content { padding: 25px; text-align: center; }
 
-.card span {
-  font-size: 0.85rem;
-  color: var(--accent);
+.btn-shine {
+  display: inline-block;
+  padding: 10px 25px;
+  background: #f1f5f9;
+  border-radius: 50px;
   font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--primary-med);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  transition: 0.3s;
 }
 
-/* EFECTOS HOVER */
-.card:hover {
-  transform: translateY(-12px);
-  box-shadow: var(--shadow-lg);
+.card:hover .btn-shine { background: var(--primary-med); color: white; }
+
+/* =========================================
+   ESTILOS DE EXAMEN (PÁGINA CATEGORÍA)
+   ========================================= */
+.exam-card {
+  background: var(--white);
+  padding: 24px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
 }
 
-.card:hover img {
-  transform: scale(1.1);
+.exam-card:hover {
+  transform: scale(1.02) translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
 }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 50px 20px;
-  background: #f8fafc;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  border-top: 1px solid rgba(0,0,0,0.05);
+.exam-icon {
+  width: 50px; height: 50px;
+  background: #fff1f2;
+  color: var(--error);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 0.7rem;
+  margin-right: 20px; flex-shrink: 0;
 }
 
-/* RESPONSIVE */
-@media (max-width: 640px) {
-  header h1 { font-size: 1.8rem; }
-  nav {
-    width: 95%;
-    gap: 2px;
-  }
-  nav a {
-    padding: 8px 12px;
-    font-size: 0.75rem;
-  }
+.exam-details h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 2px; }
+.exam-details p { font-size: 0.9rem; color: var(--text-muted); }
+
+.exam-download-btn { margin-left: auto; color: var(--text-muted); opacity: 0.5; transition: 0.3s; }
+.exam-card:hover .exam-download-btn { color: var(--accent); opacity: 1; }
+
+/* =========================================
+   SISTEMA MÓVIL
+   ========================================= */
+.menu-toggle {
+  display: none; position: fixed; top: 20px; right: 20px; z-index: 1100;
+  background: var(--accent); border: none; width: 45px; height: 45px; border-radius: 12px;
+  flex-direction: column; align-items: center; justify-content: center; gap: 4px;
 }
+
+.menu-toggle span { width: 22px; height: 3px; background: var(--primary); border-radius: 10px; }
+
+.sidebar {
+  position: fixed; top: 0; right: -300px; width: 280px; height: 100%;
+  background: white; z-index: 1050; padding: 80px 20px; transition: 0.4s;
+}
+
+.sidebar.open { right: 0; }
+
+.sidebar a { display: block; padding: 15px; color: var(--text-main); text-decoration: none; font-weight: 600; border-radius: 10px; }
+
+.menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1040; display: none; backdrop-filter: blur(4px); }
+
+.menu-overlay.active { display: block; }
+
+/* =========================================
+   ANIMACIONES Y RESPONSIVE
+   ========================================= */
+.fade-in { animation: slideUp 0.6s ease forwards; opacity: 0; }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+@media (max-width: 768px) {
+  .nav-desktop { display: none; }
+  .menu-toggle { display: flex; }
+  .header-hero h2 { font-size: 2.5rem; }
+  .container { margin-top: -60px; }
+}
+
+footer { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 0.85rem; }

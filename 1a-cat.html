@@ -2,38 +2,95 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>1ª Catalana - Exámenes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1ª Catalana - CTA Exámenes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/cta.css">
 </head>
-<body>
+<body class="category-page">
 
-<header>
-  <h1>1ª Catalana - Exámenes</h1>
-</header>
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+  <span></span><span></span><span></span>
+</button>
+<div class="menu-overlay" id="menuOverlay"></div>
 
-<nav>
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">Menú</div>
   <a href="cta.html">Inicio</a>
-  <a href="1a-cat.html">1ª CAT</a>
+  <a href="3a-rfef.html">3ª RFEF</a>
+  <a href="1a-cat.html" class="active">1ª CAT</a>
   <a href="2a-cat.html">2ª CAT</a>
   <a href="3a-cat.html">3ª CAT</a>
   <a href="asistentes.html">Asistentes</a>
 </nav>
 
-<main class="cards">
+<header class="main-header">
+  <div class="nav-container">
+    <h1>📘 CTA EXÁMENES</h1>
+    <nav class="nav-desktop">
+      <a href="cta.html">Inicio</a>
+      <a href="3a-rfef.html">3ª RFEF</a>
+      <a href="1a-cat.html" class="active">1ª CAT</a>
+      <a href="2a-cat.html">2ª CAT</a>
+      <a href="3a-cat.html">3ª CAT</a>
+      <a href="asistentes.html">Asistentes</a>
+    </nav>
+  </div>
 
-  <a class="card" href="pdf/1A-CAT/examen1.pdf" download>
-    <h2>📄 Examen Enero 2025</h2>
-  </a>
+  <div class="header-hero">
+    <span class="badge">Temporada 2025/26</span>
+    <h2>1ª Catalana</h2>
+    <p>Repositorio oficial de exámenes técnicos y reglas de juego</p>
+  </div>
+</header>
 
-  <a class="card" href="pdf/1A-CAT/examen2.pdf" download>
-    <h2>📄 Examen Marzo 2025</h2>
-  </a>
+<main class="container">
+  <div class="exam-grid">
+    <a href="pdf/1A-CAT/examen1.pdf" class="exam-card fade-in" download>
+      <div class="exam-icon">
+        <span class="file-type">PDF</span>
+      </div>
+      <div class="exam-details">
+        <h3>Examen Enero 2025</h3>
+        <p>Pruebas teóricas - Primera convocatoria</p>
+      </div>
+      <div class="exam-download-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dl-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      </div>
+    </a>
 
+    <a href="pdf/1A-CAT/examen2.pdf" class="exam-card fade-in" download style="animation-delay: 0.1s;">
+      <div class="exam-icon">
+        <span class="file-type">PDF</span>
+      </div>
+      <div class="exam-details">
+        <h3>Examen Marzo 2025</h3>
+        <p>Pruebas técnicas - Seguimiento</p>
+      </div>
+      <div class="exam-download-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dl-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      </div>
+    </a>
+  </div>
 </main>
 
 <footer>
-  © 2026 CTA Exámenes
+  <p>© 2026 CTA Exámenes · Comité de Árbitros</p>
 </footer>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('menuOverlay');
+
+  const toggleMenu = () => {
+    toggle.classList.toggle('active');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+  };
+
+  [toggle, overlay].forEach(el => el.addEventListener('click', toggleMenu));
+</script>
 
 </body>
 </html>
