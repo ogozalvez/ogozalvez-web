@@ -156,7 +156,7 @@ header h1, .nav-container h1 {
 .card-image {
   height: 200px;
   overflow: hidden;
-  background: #ddd;
+  background-color: white;
 }
 
 .card-image img {
